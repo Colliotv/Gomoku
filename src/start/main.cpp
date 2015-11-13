@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:16:54 2015 terran_j
-// Last update Tue Nov 10 19:25:40 2015 terran_j
+// Last update Fri Nov 13 21:53:21 2015 terran_j
 //
 
 #include <thread>
@@ -57,7 +57,7 @@ int	main()
         }
         pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
         lib->affActions("Coucou", 900, 150);
-        lib->refreshImg(_pions, _referee.board());
+        lib->refreshImg(_pions, _referee.board()); // faudra virer les pions partt
     }
 
     // tmp: (patcher les event pour que ca passe dans closeLib sans ca si je quitte)

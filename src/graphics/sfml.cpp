@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:24:47 2015 terran_j
-// Last update Tue Nov 10 19:17:55 2015 terran_j
+// Last update Fri Nov 13 21:56:57 2015 terran_j
 //
 
 #include "graphics/sfml.hh"
@@ -22,7 +22,7 @@ int	SFML::initLib(unsigned int x, unsigned int y)
     sf::Font *font = new sf::Font();
 
     n = new sf::RenderWindow(sf::VideoMode(x, y),
-            "GO MO KUUUUU",
+            "Gomoku",
             sf::Style::Titlebar | sf::Style::Close);
 
     this->_window = n;
