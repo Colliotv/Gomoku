@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.5)
+cmake_minimum_required(VERSION 3.3)
 project(Gomoku)
 
 set(CMAKE_COVERAGE_LINK_FLAGS    "-lpthread -lX11 -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system")
