@@ -67,11 +67,11 @@ bool referee::Referee::double_three_rule(const Piece::Position& position)
     return false;
 }
 
-bool referee::Referee::place_at(const Piece::Position& pair)
+bool referee::Referee::place_at(const Piece::Position& position)
 {
-    if (!m_board[pair].can_pose(m_turn))
+    if (!m_board[position].can_pose(m_turn))
         return false;
-    if (double_three_rule(pair))
+    if (double_three_rule(position))
         return false;
 
 
@@ -85,3 +85,31 @@ bool referee::Referee::place_at(const Piece::Position& pair)
 
 referee::Referee::Referee(referee::game::Ia* white, referee::game::Ia* black)
         : m_turn(referee::Piece::identity::white), m_win(referee::Piece::identity::none), m_white(white), m_black(black) {}
+
+bool referee::Referee::can_pose(const referee::Piece::Position& position)
+{
+    referee::Piece& piece(m_board[position]);
+
+    if (m_turn == Piece::identity::white) {
+        std::array<int, Piece::alignements_count>::iterator it;
+        it = std::find_if(piece.m_white_three_alignement.begin(), piece.m_white_three_alignement.end(), [](int p){return p > 0;});
+        if (it != std::end(piece.m_white_three_alignement)
+                && std::find_if(it + 1, piece.m_white_three_alignement.end(), [](int p){return p > 0;}) != std::end(piece.m_white_three_alignement))
+            return false;
+
+        if (piece.is_three_white_aligned()) {
+
+        }
+
+    } else {
+        std::array<int, Piece::alignements_count>::iterator it;
+        it = std::find_if(piece.m_black_three_alignement.begin(), piece.m_black_three_alignement.end(), [](int p){return p > 0;});
+        if (it != std::end(piece.m_black_three_alignement)
+                && std::find_if(it + 1, piece.m_black_three_alignement.end(), [](int p){return p > 0;}) != std::end(piece.m_black_three_alignement))
+            return false;
+
+
+
+    }
+    return true;
+}

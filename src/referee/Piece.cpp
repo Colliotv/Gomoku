@@ -18,18 +18,18 @@ namespace referee {
 
     bool  Piece::is_three_aligned() const
     {
-        return std::find(m_black_three_alignement.begin(), m_black_three_alignement.end(), true) != std::end(m_black_three_alignement)
-                && std::find(m_white_three_alignement.begin(), m_white_three_alignement.end(), true) != std::end(m_white_three_alignement);
+        return std::find_if(m_black_three_alignement.begin(), m_black_three_alignement.end(), [](int p){return p > 0;}) != std::end(m_black_three_alignement)
+                && std::find_if(m_white_three_alignement.begin(), m_white_three_alignement.end(), [](int p){return p > 0;}) != std::end(m_white_three_alignement);
     }
 
     bool  Piece::is_three_black_aligned() const
     {
-        return std::find(m_black_three_alignement.begin(), m_black_three_alignement.end(), true) != std::end(m_black_three_alignement);
+        return std::find_if(m_black_three_alignement.begin(), m_black_three_alignement.end(), [](int p){return p > 0;}) != std::end(m_black_three_alignement);
     }
 
     bool  Piece::is_three_white_aligned() const
     {
-        return std::find(m_white_three_alignement.begin(), m_white_three_alignement.end(), true) != std::end(m_white_three_alignement);
+        return std::find_if(m_white_three_alignement.begin(), m_white_three_alignement.end(), [](int p){return p > 0;}) != std::end(m_white_three_alignement);
     }
 
     bool Piece::is_empty()

@@ -27,6 +27,7 @@ namespace referee {
         bool                        double_three_rule(const Piece::Position&);
 
     public:
+        bool                        can_pose(const Piece::Position&);
         bool                        place_at(const Piece::Position&);
         referee::Piece::identity    win() { return m_win; }
 
