@@ -68,7 +68,7 @@ int	SFML::getEvent()
     return (-1);
 }
 
-void	SFML::refreshImg(std::map<std::string, int, int> _pions, referee::Board& b)
+void	SFML::refreshImg(std::map<std::string, int, int> _pions, referee::Board& board)
 {
     //
     _pions = _pions;
@@ -78,6 +78,20 @@ void	SFML::refreshImg(std::map<std::string, int, int> _pions, referee::Board& b)
 
     this->_background.setPosition(0, 0);
     this->_window->draw(this->_background);
+
+    referee::Piece::Position p({0, 0});
+    while (p.x < 19) {
+        while (p.y < 19) {
+            if (board[p].is_black()) {
+
+            } else
+            if (board[p].is_white()) {
+
+            }
+            ++p.y;
+        }
+        ++p.x;
+    }
 
     this->_window->draw(this->_actions);
     this->_window->display();
