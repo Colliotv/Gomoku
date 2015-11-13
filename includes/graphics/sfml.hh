@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:21:22 2015 terran_j
-// Last update Fri Nov 13 22:12:55 2015 terran_j
+// Last update Fri Nov 13 23:36:43 2015 terran_j
 //
 
 #ifndef SFML_HH__
@@ -24,8 +24,6 @@
 
 class SFML;
 
-//typedef void (SFML::*mapFPtr)(int, int);
-
 namespace referee { class Board; }
 
 class SFML
@@ -41,7 +39,7 @@ public:
   SFML(SFML &&) = default;
 
   int initLib(unsigned int x, unsigned int y);
-  void refreshImg(std::map<std::string, int, int> _pions, referee::Board&);
+  void refreshImg(referee::Board&);
   void affActions(const std::string &toAff, unsigned int x, unsigned int y);
   void closeLib();
   sf::Vector2i getPosition();

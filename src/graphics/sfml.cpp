@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:24:47 2015 terran_j
-// Last update Fri Nov 13 23:34:23 2015 terran_j
+// Last update Fri Nov 13 23:35:59 2015 terran_j
 //
 
 #include "graphics/sfml.hh"
@@ -56,13 +56,9 @@ int	SFML::initLib(unsigned int x, unsigned int y)
   return (0);
 }
 
-void	SFML::refreshImg(std::map<std::string, int, int> _pions, referee::Board& board)
+void	SFML::refreshImg(referee::Board& board)
 {
   sf::Vector2i pixelPos;
-
-  //
-  _pions = _pions;
-  //
 
   this->_window->clear(sf::Color::Black);
 

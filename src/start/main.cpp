@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:16:54 2015 terran_j
-// Last update Fri Nov 13 23:20:57 2015 terran_j
+// Last update Fri Nov 13 23:37:38 2015 terran_j
 //
 
 #include <thread>
@@ -17,7 +17,6 @@ int	main()
 {
   referee::Referee _referee;
   SFML *lib = new SFML();
-  std::map<std::string, int, int> _pions;
   sf::Vector2i position;
   sf::Vector2i gridPos;
 
@@ -25,10 +24,6 @@ int	main()
   if (!lib->_music->openFromFile("textures/music.ogg"))
     return (-1);
   lib->_music->play();
-
-  // a virer:
-  _pions = _pions;
-  //
 
   XInitThreads();
   if (lib->initLib(WIDTH, HEIGHT) == -1)
@@ -50,7 +45,7 @@ int	main()
 
           // puis j'affiche la map dans refresh image:
           lib->affActions("Coucou", 900, 150);
-          lib->refreshImg(_pions, _referee.board()); // faudra virer les pions partt
+          lib->refreshImg(_referee.board());
         }
       } else
       if (e.type == sf::Event::Closed)
