@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:24:47 2015 terran_j
-// Last update Fri Nov 13 23:24:42 2015 terran_j
+// Last update Fri Nov 13 23:34:23 2015 terran_j
 //
 
 #include "graphics/sfml.hh"
@@ -158,12 +158,10 @@ void	SFML::putWhite(sf::Vector2i pos)
 {
   this->_white.setPosition(pos.x, pos.y);
   this->_window->draw(this->_white);
-  this->_window->display();
 }
 
 void	SFML::putBlack(sf::Vector2i pos)
 {
   this->_black.setPosition(pos.x, pos.y);
   this->_window->draw(this->_black);
-  this->_window->display();
 }
