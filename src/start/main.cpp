@@ -51,27 +51,13 @@ int	main()
                 _referee.place_at(referee::Piece::Position({gridPos.x, gridPos.y}));
                 // puis si il confirme que c'est good il me renvoie la map completée
 
-
-                referee::Piece::Position p({0, 0});
-                while (p.x < 19) {
-                    while (p.y < 19) {
-                        if (_referee.board()[p].is_white()) {
-                            lib->putWhite(position);
-                        } else
-                        if (_referee.board()[p].is_black()) {
-                            lib->putBlack(position);
-                        }
-                        ++p.y;
-                    }
-                    ++p.x;
-                }
                 // puis j'affiche la map dans refresh image
 
             }
         }
         pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
         lib->affActions("Coucou", 900, 150);
-        lib->refreshImg(_pions);
+        lib->refreshImg(_pions, _referee.board());
     }
 
     // tmp: (patcher les event pour que ca passe dans closeLib sans ca si je quitte)
