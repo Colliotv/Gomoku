@@ -18,141 +18,141 @@ SFML::~SFML()
 
 int	SFML::initLib(unsigned int x, unsigned int y)
 {
-    sf::RenderWindow *n;
-    sf::Font *font = new sf::Font();
+  sf::RenderWindow *n;
+  sf::Font *font = new sf::Font();
 
-    n = new sf::RenderWindow(sf::VideoMode(x, y),
-            "Gomoku",
-            sf::Style::Titlebar | sf::Style::Close);
+  n = new sf::RenderWindow(sf::VideoMode(x, y),
+      "Gomoku",
+      sf::Style::Titlebar | sf::Style::Close);
 
-    this->_window = n;
-    this->_x = x;
-    this->_y = y;
+  this->_window = n;
+  this->_x = x;
+  this->_y = y;
 
-    sf::Texture *texture1 = new sf::Texture();
-    texture1->loadFromFile("textures/background.jpg");
-    sf::Sprite background(*texture1);
-    this->_background = background;
+  sf::Texture *texture1 = new sf::Texture();
+  texture1->loadFromFile("textures/background.jpg");
+  sf::Sprite background(*texture1);
+  this->_background = background;
 
-    sf::Texture *texture2 = new sf::Texture();
-    texture2->loadFromFile("textures/white.png");
-    sf::Sprite white(*texture2);
-    this->_white = white;
+  sf::Texture *texture2 = new sf::Texture();
+  texture2->loadFromFile("textures/white.png");
+  sf::Sprite white(*texture2);
+  this->_white = white;
 
-    sf::Texture *texture3 = new sf::Texture();
-    texture3->loadFromFile("textures/black.png");
-    sf::Sprite black(*texture3);
-    this->_black = black;
+  sf::Texture *texture3 = new sf::Texture();
+  texture3->loadFromFile("textures/black.png");
+  sf::Sprite black(*texture3);
+  this->_black = black;
 
-    if (!font->loadFromFile("textures/arial.ttf"))
-        return (-1);
-    this->_actions.setFont(*font);
+  if (!font->loadFromFile("textures/arial.ttf"))
+    return (-1);
+  this->_actions.setFont(*font);
 
-    return (0);
+  return (0);
 }
 
 int	SFML::getEvent()
 {
-    sf::Event Event;
+  sf::Event Event;
 
-    while (this->_window->pollEvent(Event))
+  while (this->_window->pollEvent(Event))
+  {
+    if (Event.type == sf::Event::Closed)
+      return 4242424242;
+    else if (Event.type == sf::Event::KeyPressed)
     {
-        if (Event.type == sf::Event::Closed)
-            return 4242424242;
-        else if (Event.type == sf::Event::KeyPressed)
-        {
-            if (Event.key.code == 36)
-                return 4242424242;
-        }
+      if (Event.key.code == 36)
+        return 4242424242;
     }
-    return (-1);
+  }
+  return (-1);
 }
 
 void	SFML::refreshImg(std::map<std::string, int, int> _pions, referee::Board& board)
 {
-    sf::Vector2i pixelPos;
+  sf::Vector2i pixelPos;
 
-    //
-    _pions = _pions;
-    //
+  //
+  _pions = _pions;
+  //
 
-    this->_window->clear(sf::Color::Black);
+  this->_window->clear(sf::Color::Black);
 
-    this->_background.setPosition(0, 0);
-    this->_window->draw(this->_background);
+  this->_background.setPosition(0, 0);
+  this->_window->draw(this->_background);
 
-    referee::Piece::Position p({0, 0});
-    while (p.x < 19)
-      {
-        while (p.y < 19)
-	  {
-	    pixelPos = XYToPixels(p.x, p.y);
+  referee::Piece::Position p({0, 0});
+  while (p.x < 19)
+  {
+    while (p.y < 19)
+    {
+      pixelPos = XYToPixels(p.x, p.y);
 
-	    if (board[p].is_black())
-	      putBlack(pixelPos);
-	    else if (board[p].is_white())
-	      putWhite(pixelPos);
-	    ++p.y;
-        }
-        ++p.x;
+      if (board[p].is_black())
+        putBlack(pixelPos);
+      else if (board[p].is_white())
+        putWhite(pixelPos);
+      ++p.y;
     }
+    ++p.x;
+  }
 
-    this->_window->draw(this->_actions);
-    this->_window->display();
+  this->_window->draw(this->_actions);
+  this->_window->display();
 }
 
 void	SFML::affActions(const std::string &toAff, unsigned int x, unsigned int y)
 {
-    this->_actions.setString(toAff);
-    this->_actions.setCharacterSize(40);
-    this->_actions.setColor(sf::Color::White);
-    this->_actions.setPosition(x, y);
+  this->_actions.setString(toAff);
+  this->_actions.setCharacterSize(40);
+  this->_actions.setColor(sf::Color::White);
+  this->_actions.setPosition(x, y);
 }
 
 void    SFML::closeLib()
 {
-    this->_music->stop();
-    delete(this->_music);
-    this->_window->close();
+  this->_music->stop();
+  delete(this->_music);
+  this->_window->close();
 }
 
 sf::Vector2i	SFML::getPosition()
 {
-    sf::Window *window;
-    sf::Vector2i position;
+  sf::Window *window;
+  sf::Vector2i position;
 
-    window = dynamic_cast<sf::Window*>(this->_window);
-    position = sf::Mouse::getPosition(*window);
-    return (position);
+  window = dynamic_cast<sf::Window*>(this->_window);
+  position = sf::Mouse::getPosition(*window);
+  return (position);
 }
 
 sf::Vector2i	SFML::pixelToBoardPos(sf::Vector2i position)
 {
-    int size = 42; // en pixel
-    int it = 0;
-    sf::Vector2i gridPos;
+  int size = 42; // en pixel
+  int it = 0;
+  sf::Vector2i gridPos;
 
-    position.x = position.x - 46;
-    position.y = position.y - 150;
+  position.x = position.x - 46;
+  position.y = position.y - 150;
 
-    while (it <= 18)
-    {
-        if (position.x >= size * it and position.x <= size * (it + 1))
-            gridPos.x = it;
-        if (position.y >= size * it and position.y <= size * (it + 1))
-            gridPos.y = it;
-        it += 1;
-    }
+  while (it <= 18)
+  {
+    if (position.x >= size * it and position.x <= size * (it + 1))
+      gridPos.x = it;
+    if (position.y >= size * it and position.y <= size * (it + 1))
+      gridPos.y = it;
+    it += 1;
+  }
 
-    if (position.x < 0 or position.x > 782 or position.y < 0 or position.y > 782)
-    {
-        gridPos.x = -1; // hors de la map
-        gridPos.y = -1; // hors de la map
-    }
+  if (position.x < 0 or position.x > 782 or position.y < 0 or position.y > 782)
+  {
+    gridPos.x = -1; // hors de la map
+    gridPos.y = -1; // hors de la map
+  }
 
-    std::cout << "coord reelles: x: " << gridPos.x << " et y: " << gridPos.y << std::endl; // atej
+  std::cout << "coord reelles: x: " << gridPos.x << " et y: " << gridPos.y << std::endl; // atej
 
-    return (gridPos);
+  return (gridPos);
 }
 
 sf::Vector2i	SFML::XYToPixels(int x, int y)
@@ -161,27 +161,27 @@ sf::Vector2i	SFML::XYToPixels(int x, int y)
   sf::Vector2i pixelPos;
 
   while (it <= 18)
-    {
-      if (x == it)
-	pixelPos.x = 68 + it * 42;
-      if (y == it)
-	pixelPos.y = 174 + it * 42;
-      it += 1;
-    }
+  {
+    if (x == it)
+      pixelPos.x = 68 + it * 42;
+    if (y == it)
+      pixelPos.y = 174 + it * 42;
+    it += 1;
+  }
 
   return (pixelPos);
 }
 
 void	SFML::putWhite(sf::Vector2i pos)
 {
-    this->_white.setPosition(pos.x, pos.y);
-    this->_window->draw(this->_white);
-    this->_window->display();
+  this->_white.setPosition(pos.x, pos.y);
+  this->_window->draw(this->_white);
+  this->_window->display();
 }
 
 void	SFML::putBlack(sf::Vector2i pos)
 {
-    this->_black.setPosition(pos.x, pos.y);
-    this->_window->draw(this->_black);
-    this->_window->display();
+  this->_black.setPosition(pos.x, pos.y);
+  this->_window->draw(this->_black);
+  this->_window->display();
 }
