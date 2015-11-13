@@ -61,8 +61,12 @@ namespace referee {
 
     public:
         bool                can_pose(Piece::identity i);
-        bool                is_empty();
         bool                is_same_color(Piece::identity);
+
+    public:
+        bool                is_empty();
+        bool                is_white();
+        bool                is_black();
 
         Piece() : m_piece(referee::Piece::identity::none) { }
     };

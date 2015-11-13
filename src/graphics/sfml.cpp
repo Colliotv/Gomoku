@@ -22,7 +22,7 @@ int	SFML::initLib(unsigned int x, unsigned int y)
   sf::Font *font = new sf::Font();
 
   n = new sf::RenderWindow(sf::VideoMode(x, y),
-  			   "Plazza",
+  			   "GO MO KUUUUU",
   			   sf::Style::Titlebar | sf::Style::Close);
 
   this->_window = n;

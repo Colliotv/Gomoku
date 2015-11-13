@@ -11,9 +11,11 @@
 #include <thread>
 #include <iostream>
 #include "graphics/sfml.hh"
+#include "referee/Referee.hh"
 
 int	main()
 {
+    referee::Referee _referee;
     SFML *lib = new SFML();
     unsigned int key;
     std::map<std::string, int, int> _pions;
@@ -45,10 +47,24 @@ int	main()
             gridPos = lib->pixelToBoardPos(position);
             if (gridPos.x != -1 and gridPos.y != -1)
             {
-                // envoyer gridPos a lyoko ici
-
+                // envoyer gridPos a lyoko ici:
+                _referee.place_at(referee::Piece::Position({gridPos.x, gridPos.y}));
                 // puis si il confirme que c'est good il me renvoie la map completée
 
+
+                referee::Piece::Position p({0, 0});
+                while (p.x < 19) {
+                    while (p.y < 19) {
+                        if (_referee.board()[p].is_white()) {
+                            lib->putWhite(position);
+                        } else
+                        if (_referee.board()[p].is_black()) {
+                            lib->putBlack(position);
+                        }
+                        ++p.y;
+                    }
+                    ++p.x;
+                }
                 // puis j'affiche la map dans refresh image
 
             }

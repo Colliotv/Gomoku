@@ -27,6 +27,9 @@ namespace referee {
         bool                        double_three_rule(const Piece::Position&);
 
     public:
+        inline referee::Board&             board() { return  m_board; }
+
+    public:
         bool                        can_pose(const Piece::Position&);
         bool                        place_at(const Piece::Position&);
         referee::Piece::identity    win() { return m_win; }
