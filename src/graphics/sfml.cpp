@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:24:47 2015 terran_j
-// Last update Fri Nov 13 21:56:57 2015 terran_j
+// Last update Fri Nov 13 22:22:13 2015 terran_j
 //
 
 #include "graphics/sfml.hh"
@@ -70,6 +70,8 @@ int	SFML::getEvent()
 
 void	SFML::refreshImg(std::map<std::string, int, int> _pions, referee::Board& board)
 {
+    sf::Vector2i pixelPos;
+
     //
     _pions = _pions;
     //
@@ -80,15 +82,17 @@ void	SFML::refreshImg(std::map<std::string, int, int> _pions, referee::Board& bo
     this->_window->draw(this->_background);
 
     referee::Piece::Position p({0, 0});
-    while (p.x < 19) {
-        while (p.y < 19) {
-            if (board[p].is_black()) {
+    while (p.x < 19)
+      {
+        while (p.y < 19)
+	  {
+	    pixelPos = XYToPixels(p.x, p.y);
 
-            } else
-            if (board[p].is_white()) {
-
-            }
-            ++p.y;
+	    if (board[p].is_black())
+	      putBlack(pixelPos);
+	    else if (board[p].is_white())
+	      putWhite(pixelPos);
+	    ++p.y;
         }
         ++p.x;
     }
@@ -149,6 +153,23 @@ sf::Vector2i	SFML::pixelToBoardPos(sf::Vector2i position)
     std::cout << "coord reelles: x: " << gridPos.x << " et y: " << gridPos.y << std::endl; // atej
 
     return (gridPos);
+}
+
+sf::Vector2i	SFML::XYToPixels(int x, int y)
+{
+  int it = 0;
+  sf::Vector2i pixelPos;
+
+  while (it <= 18)
+    {
+      if (x == it)
+	pixelPos.x = 68 + it * 42;
+      if (y == it)
+	pixelPos.y = 174 + it * 42;
+      it += 1;
+    }
+
+  return (pixelPos);
 }
 
 void	SFML::putWhite(sf::Vector2i pos)
