@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:24:47 2015 terran_j
-// Last update Fri Nov 13 22:52:53 2015 terran_j
+// Last update Fri Nov 13 23:24:42 2015 terran_j
 //
 
 #include "graphics/sfml.hh"
@@ -148,8 +148,8 @@ sf::Vector2i	SFML::XYToPixels(int x, int y)
 {
   sf::Vector2i pixelPos;
 
-  pixelPos.x = 68 + x * 42;
-  pixelPos.y = 174 + y * 42;
+  pixelPos.x = 68 + x * 42 - 19;
+  pixelPos.y = 174 + y * 42 - 19;
 
   return (pixelPos);
 }

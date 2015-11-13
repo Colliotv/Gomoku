@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:16:54 2015 terran_j
-// Last update Fri Nov 13 22:47:10 2015 terran_j
+// Last update Fri Nov 13 23:20:57 2015 terran_j
 //
 
 #include <thread>
@@ -17,7 +17,6 @@ int	main()
 {
   referee::Referee _referee;
   SFML *lib = new SFML();
-  unsigned int key;
   std::map<std::string, int, int> _pions;
   sf::Vector2i position;
   sf::Vector2i gridPos;
