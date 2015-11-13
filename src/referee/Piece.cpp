@@ -79,4 +79,8 @@ namespace referee {
   {
     return m_piece == Piece::identity::white;
   }
+
+  void Piece::set_identity(Piece::identity _identity){
+    m_piece = _identity;
+  }
 }

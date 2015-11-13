@@ -67,7 +67,9 @@ namespace referee {
     bool                is_empty();
     bool                is_white();
     bool                is_black();
+    void                set_identity(identity);
 
+  public:
     Piece() : m_piece(referee::Piece::identity::none) { }
   };
 };
