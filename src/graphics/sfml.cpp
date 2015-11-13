@@ -56,23 +56,6 @@ int	SFML::initLib(unsigned int x, unsigned int y)
   return (0);
 }
 
-int	SFML::getEvent()
-{
-  sf::Event Event;
-
-  while (this->_window->pollEvent(Event))
-  {
-    if (Event.type == sf::Event::Closed)
-      return 4242424242;
-    else if (Event.type == sf::Event::KeyPressed)
-    {
-      if (Event.key.code == 36)
-        return 4242424242;
-    }
-  }
-  return (-1);
-}
-
 void	SFML::refreshImg(std::map<std::string, int, int> _pions, referee::Board& board)
 {
   sf::Vector2i pixelPos;

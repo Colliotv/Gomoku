@@ -41,7 +41,6 @@ public:
   SFML(SFML &&) = default;
 
   int initLib(unsigned int x, unsigned int y);
-  int getEvent();
   void refreshImg(std::map<std::string, int, int> _pions, referee::Board&);
   void affActions(const std::string &toAff, unsigned int x, unsigned int y);
   void closeLib();
@@ -50,6 +49,9 @@ public:
   sf::Vector2i XYToPixels(int x, int y);
   void putWhite(sf::Vector2i pos);
   void putBlack(sf::Vector2i pos);
+
+public:
+  inline sf::RenderWindow& window() { return *_window; };
 
 private:
   sf::RenderWindow *_window;
