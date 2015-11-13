@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:16:54 2015 terran_j
-// Last update Fri Nov 13 21:53:21 2015 terran_j
+// Last update Fri Nov 13 22:47:10 2015 terran_j
 //
 
 #include <thread>
@@ -51,13 +51,12 @@ int	main()
                 _referee.place_at(referee::Piece::Position({gridPos.x, gridPos.y}));
                 // puis si il confirme que c'est good il me renvoie la map completée
 
-                // puis j'affiche la map dans refresh image
-
+                // puis j'affiche la map dans refresh image:
+		lib->affActions("Coucou", 900, 150);
+		lib->refreshImg(_pions, _referee.board()); // faudra virer les pions partt
             }
-        }
+	}
         pressed = sf::Mouse::isButtonPressed(sf::Mouse::Left);
-        lib->affActions("Coucou", 900, 150);
-        lib->refreshImg(_pions, _referee.board()); // faudra virer les pions partt
     }
 
     // tmp: (patcher les event pour que ca passe dans closeLib sans ca si je quitte)

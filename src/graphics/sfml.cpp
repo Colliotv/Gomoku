@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:24:47 2015 terran_j
-// Last update Fri Nov 13 22:22:13 2015 terran_j
+// Last update Fri Nov 13 22:52:53 2015 terran_j
 //
 
 #include "graphics/sfml.hh"
@@ -43,6 +43,11 @@ int	SFML::initLib(unsigned int x, unsigned int y)
   texture3->loadFromFile("textures/black.png");
   sf::Sprite black(*texture3);
   this->_black = black;
+
+  this->_window->clear(sf::Color::Black);
+  this->_background.setPosition(0, 0);
+  this->_window->draw(this->_background);
+  this->_window->display();
 
   if (!font->loadFromFile("textures/arial.ttf"))
     return (-1);
@@ -94,6 +99,7 @@ void	SFML::refreshImg(std::map<std::string, int, int> _pions, referee::Board& bo
         putWhite(pixelPos);
       ++p.y;
     }
+    p.y = 0;
     ++p.x;
   }
 
@@ -157,17 +163,10 @@ sf::Vector2i	SFML::pixelToBoardPos(sf::Vector2i position)
 
 sf::Vector2i	SFML::XYToPixels(int x, int y)
 {
-  int it = 0;
   sf::Vector2i pixelPos;
 
-  while (it <= 18)
-  {
-    if (x == it)
-      pixelPos.x = 68 + it * 42;
-    if (y == it)
-      pixelPos.y = 174 + it * 42;
-    it += 1;
-  }
+  pixelPos.x = 68 + x * 42;
+  pixelPos.y = 174 + y * 42;
 
   return (pixelPos);
 }

@@ -5,7 +5,7 @@
 ## Login   <terran_j@epitech.net>
 ##
 ## Started on  Tue Oct 27 11:16:18 2015 terran_j
-## Last update Fri Nov 13 20:13:26 2015 terran_j
+## Last update Fri Nov 13 22:32:28 2015 terran_j
 ##
 
 NAME	=	gomoku
@@ -14,7 +14,7 @@ SRC	=       src/start/main.cpp \
 		src/graphics/sfml.cpp \
 		src/referee/Board.cpp \
 		src/referee/Piece.cpp \
-		src/referee/Referee \
+		src/referee/Referee.cpp \
 
 OBJ	=       $(SRC:.cpp=.o)
 
