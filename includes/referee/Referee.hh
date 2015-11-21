@@ -27,6 +27,9 @@ namespace referee {
   private:
     game::Player*       m_white;
     game::Player*       m_black;
+  public:
+    game::Player&       white_player() { return *m_white; }
+    game::Player&       black_player() { return *m_black; }
 
   private:
     bool                        double_three_rule(const Piece::Position&);
