@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:21:22 2015 terran_j
-// Last update Sat Nov 21 20:28:30 2015 terran_j
+// Last update Sat Nov 21 21:24:56 2015 terran_j
 //
 
 #ifndef SFML_HH__
@@ -61,6 +61,7 @@ private:
   int _x;
   int _y;
   sf::Sprite _background;
+  sf::Sprite _background2;
   sf::Sprite _white;
   sf::Sprite _black;
   sf::Text _scores;

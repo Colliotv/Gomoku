@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:24:47 2015 terran_j
-// Last update Sat Nov 21 20:46:58 2015 terran_j
+// Last update Sat Nov 21 22:28:45 2015 terran_j
 //
 
 #include "graphics/sfml.hh"
@@ -29,6 +29,11 @@ int	SFML::initLib(unsigned int x, unsigned int y)
   this->_window = n;
   this->_x = x;
   this->_y = y;
+
+  sf::Texture *texture0 = new sf::Texture();
+  texture0->loadFromFile("textures/background2.jpg");
+  sf::Sprite background2(*texture0);
+  this->_background2 = background2;
 
   sf::Texture *texture1 = new sf::Texture();
   texture1->loadFromFile("textures/background.jpg");
@@ -67,9 +72,9 @@ void	SFML::refreshImg(referee::Board& board, int white_points, int black_points,
   sf::Vector2i scoresPosBlack;
 
   scoresPosWhite.x = 900;
-  scoresPosWhite.y = 200;
+  scoresPosWhite.y = 210;
   scoresPosBlack.x = 900;
-  scoresPosBlack.y = 250;
+  scoresPosBlack.y = 255;
 
   this->_window->clear(sf::Color::Black);
 
@@ -77,7 +82,9 @@ void	SFML::refreshImg(referee::Board& board, int white_points, int black_points,
   this->_window->draw(this->_background);
 
   if (victory == referee::Piece::identity::none) {
+
     this->affScores("Scores", 900, 150);
+
     // aff pion blanc:
     this->putWhite(scoresPosWhite);
     this->affScoreWhite(std::to_string(white_points), 1000, 200);
@@ -112,13 +119,14 @@ void	SFML::refreshImg(referee::Board& board, int white_points, int black_points,
     {
       if (victory == referee::Piece::identity::white)
 	{
-	  this->affVictory("White victory !", 500, 450);
+	  this->affVictory("White victory !", 400, 400);
 	}
       else
 	{
-	  this->affVictory("Black victory !", 500, 450);
+	  this->affVictory("Black victory !", 400, 400);
 	}
-      // aff background 2
+      this->_background2.setPosition(0, 0);
+      this->_window->draw(this->_background2);
       this->_window->draw(this->_victory);
     }
 
@@ -152,7 +160,7 @@ void	SFML::affScoreBlack(const std::string &toAff, unsigned int x, unsigned int 
 void	SFML::affVictory(const std::string &toAff, unsigned int x, unsigned int y)
 {
   this->_victory.setString(toAff);
-  this->_victory.setCharacterSize(80);
+  this->_victory.setCharacterSize(120);
   this->_victory.setColor(sf::Color::White);
   this->_victory.setPosition(x, y);
 }
