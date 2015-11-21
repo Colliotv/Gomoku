@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:16:54 2015 terran_j
-// Last update Sat Nov 21 20:07:14 2015 terran_j
+// Last update Sat Nov 21 20:27:26 2015 terran_j
 //
 
 #include <thread>
@@ -44,7 +44,7 @@ int	main()
           // puis si il confirme que c'est good il me renvoie la map completée
 
           // puis j'affiche la map dans refresh image:
-          lib->refreshImg(_referee.board(), _referee.white_player().taken(), _referee.black_player().taken());
+          lib->refreshImg(_referee.board(), _referee.white_player().taken(), _referee.black_player().taken(), _referee.win());
         }
       } else
       if (e.type == sf::Event::Closed)

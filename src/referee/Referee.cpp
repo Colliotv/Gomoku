@@ -130,6 +130,8 @@ bool referee::Referee::double_three_rule(const Piece::Position& position)
 
 bool referee::Referee::place_at(const Piece::Position& _position)
 {
+  if (win() != Piece::identity::none)
+    return false;
   referee::Piece::Position position(m_first_play ? referee::Piece::Position({9, 9}) : _position);
 
   if ( not m_first_play and ( not m_board[position].can_pose() or !can_pose(position) ) )
@@ -141,7 +143,6 @@ bool referee::Referee::place_at(const Piece::Position& _position)
   take(position);
   place(position);
   if (test_potential_win(position)) {
-    std::exit(0);
     return true;
   }
 

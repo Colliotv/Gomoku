@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:21:22 2015 terran_j
-// Last update Sat Nov 21 20:08:05 2015 terran_j
+// Last update Sat Nov 21 20:28:30 2015 terran_j
 //
 
 #ifndef SFML_HH__
@@ -18,6 +18,8 @@
 #include <SFML/Audio.hpp>
 #include <X11/Xlib.h>
 #include <iostream>
+
+#include "referee/Piece.hh"
 
 #define WIDTH 1500
 #define HEIGHT 1000
@@ -39,8 +41,11 @@ public:
   SFML(SFML &&) = default;
 
   int initLib(unsigned int x, unsigned int y);
-  void refreshImg(referee::Board&, int white_points, int black_points);
-  void affActions(const std::string &toAff, unsigned int x, unsigned int y);
+  void refreshImg(referee::Board&, int white_points, int black_points, referee::Piece::identity);
+  void affScores(const std::string &toAff, unsigned int x, unsigned int y);
+  void affScoreWhite(const std::string &toAff, unsigned int x, unsigned int y);
+  void affScoreBlack(const std::string &toAff, unsigned int x, unsigned int y);
+  void affVictory(const std::string &toAff, unsigned int x, unsigned int y);
   void closeLib();
   sf::Vector2i getPosition();
   sf::Vector2i pixelToBoardPos(sf::Vector2i position);
@@ -58,7 +63,10 @@ private:
   sf::Sprite _background;
   sf::Sprite _white;
   sf::Sprite _black;
-  sf::Text _actions;
+  sf::Text _scores;
+  sf::Text _scoreWhite;
+  sf::Text _scoreBlack;
+  sf::Text _victory;
 };
 
 #endif
