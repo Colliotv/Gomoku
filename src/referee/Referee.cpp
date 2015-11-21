@@ -213,6 +213,11 @@ void referee::Referee::take(const Piece::Position& position) {
         board()[oth * 2 + position + _oth].near_disable();
         board()[oth * 1 + position + _oth].near_disable();
       }
+      if (m_turn == Piece::identity::white) {
+	m_white->add_taken();
+      } else {
+	m_black->add_taken();
+      }
       board()[oth * 2 + position].set_identity(Piece::identity::none);
       board()[oth * 1 + position].set_identity(Piece::identity::none);
     }

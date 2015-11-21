@@ -2,7 +2,7 @@
 // Created by collio_v on 11/16/15.
 //
 
-#include "Player.hh"
+#include "game/Player.hh"
 
 void game::Player::add_taken()
 {

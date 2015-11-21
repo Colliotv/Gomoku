@@ -5,11 +5,12 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:24:47 2015 terran_j
-// Last update Fri Nov 13 23:35:59 2015 terran_j
+// Last update Sat Nov 21 20:07:26 2015 terran_j
 //
 
 #include "graphics/sfml.hh"
 #include "referee/Board.hh"
+
 SFML::SFML()
 {}
 
@@ -56,14 +57,30 @@ int	SFML::initLib(unsigned int x, unsigned int y)
   return (0);
 }
 
-void	SFML::refreshImg(referee::Board& board)
+void	SFML::refreshImg(referee::Board& board, int white_points, int black_points)
 {
   sf::Vector2i pixelPos;
+  sf::Vector2i scoresPosWhite;
+  sf::Vector2i scoresPosBlack;
+
+  scoresPosWhite.x = 900;
+  scoresPosWhite.y = 200;
+  scoresPosBlack.x = 900;
+  scoresPosBlack.y = 250;
 
   this->_window->clear(sf::Color::Black);
 
   this->_background.setPosition(0, 0);
   this->_window->draw(this->_background);
+
+  this->affActions("Scores", 900, 150);
+  // aff pion blanc:
+  this->putWhite(scoresPosWhite);
+  this->affActions(std::to_string(white_points), 1000, 200);
+
+  // aff pion noir:
+  this->putBlack(scoresPosBlack);
+  this->affActions(std::to_string(black_points), 1000, 250);
 
   referee::Piece::Position p({0, 0});
   while (p.x < 19)

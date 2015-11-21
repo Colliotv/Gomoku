@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:21:22 2015 terran_j
-// Last update Fri Nov 13 23:36:43 2015 terran_j
+// Last update Sat Nov 21 20:08:05 2015 terran_j
 //
 
 #ifndef SFML_HH__
@@ -39,7 +39,7 @@ public:
   SFML(SFML &&) = default;
 
   int initLib(unsigned int x, unsigned int y);
-  void refreshImg(referee::Board&);
+  void refreshImg(referee::Board&, int white_points, int black_points);
   void affActions(const std::string &toAff, unsigned int x, unsigned int y);
   void closeLib();
   sf::Vector2i getPosition();
