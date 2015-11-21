@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:16:54 2015 terran_j
-// Last update Fri Nov 13 23:37:38 2015 terran_j
+// Last update Sat Nov 21 19:32:04 2015 terran_j
 //
 
 #include <thread>
@@ -44,7 +44,8 @@ int	main()
           // puis si il confirme que c'est good il me renvoie la map completée
 
           // puis j'affiche la map dans refresh image:
-          lib->affActions("Coucou", 900, 150);
+          lib->affActions("blanc score: ", 900, 150);
+          lib->affActions("_referee->?", 1000, 150);
           lib->refreshImg(_referee.board());
         }
       } else

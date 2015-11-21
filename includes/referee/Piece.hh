@@ -64,7 +64,7 @@ namespace referee {
     identity     operator*() { return m_piece; }
 
   public:
-    bool                can_pose(Piece::identity i);
+    bool                can_pose();
     bool                is_same_color(Piece::identity);
     bool                is_other_color(Piece::identity);
 

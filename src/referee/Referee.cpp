@@ -132,7 +132,7 @@ bool referee::Referee::place_at(const Piece::Position& _position)
 {
   referee::Piece::Position position(m_first_play ? referee::Piece::Position({9, 9}) : _position);
 
-  if ( not m_first_play and ( not m_board[position].can_pose(m_turn) or !can_pose(position) ) )
+  if ( not m_first_play and ( not m_board[position].can_pose() or !can_pose(position) ) )
     return false;
   if ( not m_first_play and double_three_rule(position) )
     return false;
