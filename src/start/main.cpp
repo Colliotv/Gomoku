@@ -51,7 +51,7 @@ int	main()
       if (e.type == sf::Event::Closed)
         lib->closeLib();
       else
-      if (e.type == sf::Event::KeyPressed)
+      if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Key::Escape)
         lib->closeLib();
     }
   }

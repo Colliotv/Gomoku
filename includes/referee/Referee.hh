@@ -6,37 +6,47 @@
 #define GOMOKU_STATE_HH
 
 #include "referee/Board.hh"
+#include "game/Player.hh"
 
 namespace referee {
 
-    namespace game{class Ia;};
+  /**
+   * Referee definition
+   */
+  class Referee {
+  private:
+    bool                      m_first_play;
 
-    class Referee {
-    private:
-        referee::Piece::identity  m_turn;
-        referee::Board  m_board;
+  private:
+    referee::Piece::identity  m_turn;
+    referee::Board  m_board;
 
-    private:
-        referee::Piece::identity  m_win;
+  private:
+    referee::Piece::identity  m_win;
 
-    private:
-        game::Ia*       m_white;
-        game::Ia*       m_black;
+  private:
+    game::Player*       m_white;
+    game::Player*       m_black;
 
-    private:
-        bool                        double_three_rule(const Piece::Position&);
+  private:
+    bool                        double_three_rule(const Piece::Position&);
 
-    public:
-        inline referee::Board&             board() { return  m_board; }
+  public:
+    inline referee::Board&             board() { return  m_board; }
 
-    public:
-        bool                        can_pose(const Piece::Position&);
-        bool                        place_at(const Piece::Position&);
-        referee::Piece::identity    win() { return m_win; }
+  public:
+    bool                        can_pose(const Piece::Position&);
+    void                        take(const Piece::Position&);
+    void                        place(const Piece::Position&);
+    bool                        place_at(const Piece::Position&);
+    bool                        test_potential_win(const Piece::Position&);
 
-    public:
-        Referee(game::Ia* white = nullptr, game::Ia* black = nullptr);
-    };
+  public:
+    referee::Piece::identity    win() { return m_win; }
+
+  public:
+    Referee(game::Player* white = new game::Player(), game::Player* black = new game::Player());
+  };
 
 };
 

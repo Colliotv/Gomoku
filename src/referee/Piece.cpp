@@ -2,13 +2,14 @@
 // Created by collio_v on 11/10/15.
 //
 
+#include <iostream>
 #include "referee/Piece.hh"
 
 namespace referee {
   bool Piece::can_pose(Piece::identity i)
   {
     return m_piece == identity::none &&
-        !(i==identity::white ? m_white_interdiction : m_black_interdiction);
+        m_near > 0;
   }
 
   const Piece::Position Piece::Position::operator+(const Piece::Position& oth) const
@@ -57,13 +58,24 @@ namespace referee {
       m_black_three_alignement[alignement] += 1;
     }
     if (identity == Piece::identity::white) {
-      m_black_three_alignement[alignement] += 1;
+      m_white_three_alignement[alignement] += 1;
+      std::cout << "for alignement " << alignement << " value:"  << m_black_three_alignement[alignement] << std::endl;
     }
   }
   void Piece::unmark_for(Piece::identity identity, int alignement)
   {
     if (identity == Piece::identity::black && m_black_three_alignement[alignement] > 0) {
       m_black_three_alignement[alignement] -= 1;
+    }
+    if (identity == Piece::identity::white && m_black_three_alignement[alignement] > 0) {
+      m_white_three_alignement[alignement] -= 1;
+    }
+  }
+
+  void Piece::unmark_adv(Piece::identity identity, int alignement)
+  {
+    if (identity == Piece::identity::black && m_black_three_alignement[alignement] > 0) {
+      m_white_three_alignement[alignement] -= 1;
     }
     if (identity == Piece::identity::white && m_black_three_alignement[alignement] > 0) {
       m_black_three_alignement[alignement] -= 1;
@@ -82,5 +94,10 @@ namespace referee {
 
   void Piece::set_identity(Piece::identity _identity){
     m_piece = _identity;
+  }
+
+  bool Piece::is_other_color(Piece::identity _identity)
+  {
+    return _identity == identity::white ? m_piece == identity::black : m_piece == identity::white;
   }
 }

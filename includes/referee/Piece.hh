@@ -30,7 +30,8 @@ namespace referee {
     enum class identity {
       none,
       white,
-      black
+      black,
+      out
     };
     enum class alignement : short{
       vertical,
@@ -51,10 +52,13 @@ namespace referee {
     bool  is_three_white_aligned() const;
     void  mark_for(Piece::identity, int alignement);
     void  unmark_for(Piece::identity, int alignement);
+    void  unmark_adv(Piece::identity, int alignement);
 
   private:
-    bool m_white_interdiction;
-    bool m_black_interdiction;
+    int m_near;
+  public:
+    inline void          near_enable() { m_near += 1; }
+    inline void          near_disable() { m_near -= 1; }
 
   public:
     identity     operator*() { return m_piece; }
@@ -62,6 +66,7 @@ namespace referee {
   public:
     bool                can_pose(Piece::identity i);
     bool                is_same_color(Piece::identity);
+    bool                is_other_color(Piece::identity);
 
   public:
     bool                is_empty();
@@ -70,7 +75,8 @@ namespace referee {
     void                set_identity(identity);
 
   public:
-    Piece() : m_piece(referee::Piece::identity::none) { }
+    Piece(identity i = referee::Piece::identity::none) : m_piece(i), m_white_three_alignement(), m_black_three_alignement(), m_near(false) { }
+    Piece(const Piece&) = default;
   };
 };
 

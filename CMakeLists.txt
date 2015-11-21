@@ -8,5 +8,5 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${CMAKE_COVERAGE_LINK_FLAG
 set(CMAKE_CXX clang++)
 
 include_directories(includes)
-set(SOURCE_FILES src/start/main.cpp includes/graphics includes/referee src/referee/Piece.cpp src/referee/Board.cpp src/referee/Referee.cpp src/referee src/graphics/sfml.cpp)
+set(SOURCE_FILES src/start/main.cpp includes/graphics includes/referee src/referee/Piece.cpp src/referee/Board.cpp src/referee/Referee.cpp src/referee src/graphics/sfml.cpp includes/game)
 add_executable(Gomoku ${SOURCE_FILES})
