@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:21:22 2015 terran_j
-// Last update Sat Nov 21 21:24:56 2015 terran_j
+// Last update Mon Nov 23 15:34:01 2015 terran_j
 //
 
 #ifndef SFML_HH__
@@ -46,6 +46,7 @@ public:
   void affScoreWhite(const std::string &toAff, unsigned int x, unsigned int y);
   void affScoreBlack(const std::string &toAff, unsigned int x, unsigned int y);
   void affVictory(const std::string &toAff, unsigned int x, unsigned int y);
+  void affPlayerTurn(const std::string &toAff, unsigned int x, unsigned int y);
   void closeLib();
   sf::Vector2i getPosition();
   sf::Vector2i pixelToBoardPos(sf::Vector2i position);
@@ -68,6 +69,7 @@ private:
   sf::Text _scoreWhite;
   sf::Text _scoreBlack;
   sf::Text _victory;
+  sf::Text _playerTurn;
 };
 
 #endif

@@ -243,6 +243,11 @@ bool referee::Referee::test_potential_win(const referee::Piece::Position& positi
       return true;
     }
   }
+  if (m_turn == Piece::identity::white && m_white->taken() >= 10) {
+    m_win = m_turn;
+  } else if ( m_turn == Piece::identity::black && m_black->taken() >= 10) {
+    m_win = m_turn;
+  }
 
   return false;
 }

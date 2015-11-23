@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:24:47 2015 terran_j
-// Last update Sat Nov 21 22:28:45 2015 terran_j
+// Last update Mon Nov 23 15:35:20 2015 terran_j
 //
 
 #include "graphics/sfml.hh"
@@ -61,6 +61,7 @@ int	SFML::initLib(unsigned int x, unsigned int y)
   this->_scoreWhite.setFont(*font);
   this->_scoreBlack.setFont(*font);
   this->_victory.setFont(*font);
+  this->_playerTurn.setFont(*font);
 
   return (0);
 }
@@ -93,6 +94,9 @@ void	SFML::refreshImg(referee::Board& board, int white_points, int black_points,
     this->putBlack(scoresPosBlack);
     this->affScoreBlack(std::to_string(black_points), 1000, 250);
 
+    // aff qui joue:
+    this->affPlayerTurn("Tour de machin", 900, 500);
+
     referee::Piece::Position p({0, 0});
     while (p.x < 19)
       {
@@ -113,6 +117,7 @@ void	SFML::refreshImg(referee::Board& board, int white_points, int black_points,
     this->_window->draw(this->_scores);
     this->_window->draw(this->_scoreWhite);
     this->_window->draw(this->_scoreBlack);
+    this->_window->draw(this->_playerTurn);
 
   }
   else
@@ -163,6 +168,14 @@ void	SFML::affVictory(const std::string &toAff, unsigned int x, unsigned int y)
   this->_victory.setCharacterSize(120);
   this->_victory.setColor(sf::Color::White);
   this->_victory.setPosition(x, y);
+}
+
+void	SFML::affPlayerTurn(const std::string &toAff, unsigned int x, unsigned int y)
+{
+  this->_playerTurn.setString(toAff);
+  this->_playerTurn.setCharacterSize(80);
+  this->_playerTurn.setColor(sf::Color::White);
+  this->_playerTurn.setPosition(x, y);
 }
 
 void    SFML::closeLib()
