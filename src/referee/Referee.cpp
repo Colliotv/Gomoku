@@ -130,9 +130,11 @@ bool referee::Referee::double_three_rule(const Piece::Position& position)
 
 bool referee::Referee::place_at(const Piece::Position& _position)
 {
+  if (win() != Piece::identity::none)
+    return false;
   referee::Piece::Position position(m_first_play ? referee::Piece::Position({9, 9}) : _position);
 
-  if ( not m_first_play and ( not m_board[position].can_pose(m_turn) or !can_pose(position) ) )
+  if ( not m_first_play and ( not m_board[position].can_pose() or !can_pose(position) ) )
     return false;
   if ( not m_first_play and double_three_rule(position) )
     return false;
@@ -141,7 +143,6 @@ bool referee::Referee::place_at(const Piece::Position& _position)
   take(position);
   place(position);
   if (test_potential_win(position)) {
-    std::exit(0);
     return true;
   }
 
@@ -213,6 +214,11 @@ void referee::Referee::take(const Piece::Position& position) {
         board()[oth * 2 + position + _oth].near_disable();
         board()[oth * 1 + position + _oth].near_disable();
       }
+      if (m_turn == Piece::identity::white) {
+	m_white->add_taken();
+      } else {
+	m_black->add_taken();
+      }
       board()[oth * 2 + position].set_identity(Piece::identity::none);
       board()[oth * 1 + position].set_identity(Piece::identity::none);
       if (m_turn == Piece::identity::white) {
@@ -245,6 +251,11 @@ bool referee::Referee::test_potential_win(const referee::Piece::Position& positi
       m_win = m_turn;
       return true;
     }
+  }
+  if (m_turn == Piece::identity::white && m_white->taken() >= 10) {
+    m_win = m_turn;
+  } else if ( m_turn == Piece::identity::black && m_black->taken() >= 10) {
+    m_win = m_turn;
   }
 
   return false;

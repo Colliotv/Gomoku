@@ -5,11 +5,12 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:24:47 2015 terran_j
-// Last update Fri Nov 13 23:35:59 2015 terran_j
+// Last update Mon Nov 23 15:35:20 2015 terran_j
 //
 
 #include "graphics/sfml.hh"
 #include "referee/Board.hh"
+
 SFML::SFML()
 {}
 
@@ -28,6 +29,11 @@ int	SFML::initLib(unsigned int x, unsigned int y)
   this->_window = n;
   this->_x = x;
   this->_y = y;
+
+  sf::Texture *texture0 = new sf::Texture();
+  texture0->loadFromFile("textures/background2.jpg");
+  sf::Sprite background2(*texture0);
+  this->_background2 = background2;
 
   sf::Texture *texture1 = new sf::Texture();
   texture1->loadFromFile("textures/background.jpg");
@@ -51,47 +57,125 @@ int	SFML::initLib(unsigned int x, unsigned int y)
 
   if (!font->loadFromFile("textures/arial.ttf"))
     return (-1);
-  this->_actions.setFont(*font);
+  this->_scores.setFont(*font);
+  this->_scoreWhite.setFont(*font);
+  this->_scoreBlack.setFont(*font);
+  this->_victory.setFont(*font);
+  this->_playerTurn.setFont(*font);
 
   return (0);
 }
 
-void	SFML::refreshImg(referee::Board& board)
+void	SFML::refreshImg(referee::Board& board, int white_points, int black_points, referee::Piece::identity victory)
 {
   sf::Vector2i pixelPos;
+  sf::Vector2i scoresPosWhite;
+  sf::Vector2i scoresPosBlack;
+
+  scoresPosWhite.x = 900;
+  scoresPosWhite.y = 210;
+  scoresPosBlack.x = 900;
+  scoresPosBlack.y = 255;
 
   this->_window->clear(sf::Color::Black);
 
   this->_background.setPosition(0, 0);
   this->_window->draw(this->_background);
 
-  referee::Piece::Position p({0, 0});
-  while (p.x < 19)
-  {
-    while (p.y < 19)
-    {
-      pixelPos = XYToPixels(p.x, p.y);
+  if (victory == referee::Piece::identity::none) {
 
-      if (board[p].is_black())
-        putBlack(pixelPos);
-      else if (board[p].is_white())
-        putWhite(pixelPos);
-      ++p.y;
-    }
-    p.y = 0;
-    ++p.x;
+    this->affScores("Scores", 900, 150);
+
+    // aff pion blanc:
+    this->putWhite(scoresPosWhite);
+    this->affScoreWhite(std::to_string(white_points), 1000, 200);
+
+    // aff pion noir:
+    this->putBlack(scoresPosBlack);
+    this->affScoreBlack(std::to_string(black_points), 1000, 250);
+
+    // aff qui joue:
+    this->affPlayerTurn("Tour de machin", 900, 500);
+
+    referee::Piece::Position p({0, 0});
+    while (p.x < 19)
+      {
+	while (p.y < 19)
+	  {
+	    pixelPos = XYToPixels(p.x, p.y);
+
+	    if (board[p].is_black())
+	      putBlack(pixelPos);
+	    else if (board[p].is_white())
+	      putWhite(pixelPos);
+	    ++p.y;
+	  }
+	p.y = 0;
+	++p.x;
+      }
+
+    this->_window->draw(this->_scores);
+    this->_window->draw(this->_scoreWhite);
+    this->_window->draw(this->_scoreBlack);
+    this->_window->draw(this->_playerTurn);
+
   }
+  else
+    {
+      if (victory == referee::Piece::identity::white)
+	{
+	  this->affVictory("White victory !", 400, 400);
+	}
+      else
+	{
+	  this->affVictory("Black victory !", 400, 400);
+	}
+      this->_background2.setPosition(0, 0);
+      this->_window->draw(this->_background2);
+      this->_window->draw(this->_victory);
+    }
 
-  this->_window->draw(this->_actions);
   this->_window->display();
 }
 
-void	SFML::affActions(const std::string &toAff, unsigned int x, unsigned int y)
+void	SFML::affScores(const std::string &toAff, unsigned int x, unsigned int y)
 {
-  this->_actions.setString(toAff);
-  this->_actions.setCharacterSize(40);
-  this->_actions.setColor(sf::Color::White);
-  this->_actions.setPosition(x, y);
+  this->_scores.setString(toAff);
+  this->_scores.setCharacterSize(40);
+  this->_scores.setColor(sf::Color::White);
+  this->_scores.setPosition(x, y);
+}
+
+void	SFML::affScoreWhite(const std::string &toAff, unsigned int x, unsigned int y)
+{
+  this->_scoreWhite.setString(toAff);
+  this->_scoreWhite.setCharacterSize(40);
+  this->_scoreWhite.setColor(sf::Color::White);
+  this->_scoreWhite.setPosition(x, y);
+}
+
+void	SFML::affScoreBlack(const std::string &toAff, unsigned int x, unsigned int y)
+{
+  this->_scoreBlack.setString(toAff);
+  this->_scoreBlack.setCharacterSize(40);
+  this->_scoreBlack.setColor(sf::Color::White);
+  this->_scoreBlack.setPosition(x, y);
+}
+
+void	SFML::affVictory(const std::string &toAff, unsigned int x, unsigned int y)
+{
+  this->_victory.setString(toAff);
+  this->_victory.setCharacterSize(120);
+  this->_victory.setColor(sf::Color::White);
+  this->_victory.setPosition(x, y);
+}
+
+void	SFML::affPlayerTurn(const std::string &toAff, unsigned int x, unsigned int y)
+{
+  this->_playerTurn.setString(toAff);
+  this->_playerTurn.setCharacterSize(80);
+  this->_playerTurn.setColor(sf::Color::White);
+  this->_playerTurn.setPosition(x, y);
 }
 
 void    SFML::closeLib()

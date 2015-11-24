@@ -6,7 +6,7 @@
 #include "referee/Piece.hh"
 
 namespace referee {
-  bool Piece::can_pose(Piece::identity i)
+  bool Piece::can_pose()
   {
     return m_piece == identity::none &&
         m_near > 0;
