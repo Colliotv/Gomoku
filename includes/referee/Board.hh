@@ -10,16 +10,19 @@
 
 namespace referee {
 
-    class Board {
-    private:
-        std::array<std::array<referee::Piece, 19>, 19> m_board;
+  class Board {
+  private:
+    std::array<std::array<referee::Piece, 19>, 19> m_board;
 
-    public:
-        Board() = default;
+  public:
+    Board() = default;
 
-    public:
-        referee::Piece& operator [] (const Piece::Position&);
-    };
+  public:
+    referee::Piece& operator [] (const Piece::Position&);
+
+  public:
+
+  };
 };
 
 #endif //GOMOKU_BOARD_HH
