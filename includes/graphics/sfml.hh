@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:21:22 2015 terran_j
-// Last update Mon Nov 23 15:34:01 2015 terran_j
+// Last update Thu Nov 26 20:40:44 2015 terran_j
 //
 
 #ifndef SFML_HH__
@@ -31,8 +31,6 @@ namespace referee { class Board; }
 class SFML
 {
 public:
-  sf::Music *_music; // faire setter getter plus tard
-
   SFML();
   ~SFML();
 
@@ -40,6 +38,8 @@ public:
   SFML(const SFML &) = default;
   SFML(SFML &&) = default;
 
+  void startMenu();
+  void endMenu();
   int initLib(unsigned int x, unsigned int y);
   void refreshImg(referee::Board&, int white_points, int black_points, referee::Piece::identity);
   void affScores(const std::string &toAff, unsigned int x, unsigned int y);
@@ -54,8 +54,8 @@ public:
   void putWhite(sf::Vector2i pos);
   void putBlack(sf::Vector2i pos);
 
-public:
   inline sf::RenderWindow& window() { return *_window; };
+  sf::Music *_music;
 
 private:
   sf::RenderWindow *_window;
@@ -70,6 +70,11 @@ private:
   sf::Text _scoreBlack;
   sf::Text _victory;
   sf::Text _playerTurn;
+
+  bool _isSound;
+  bool _soundIsHere;
+  bool _isAI;
+  bool _areExtraRules;
 };
 
 #endif
