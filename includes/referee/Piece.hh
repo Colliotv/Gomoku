@@ -8,7 +8,7 @@
 #include <array>
 #include <algorithm>
 #include <map>
-#include <bits/stl_list.h>
+#include <list>
 
 namespace referee {
 
@@ -27,6 +27,9 @@ namespace referee {
       Position(const Position&) = default;
 
       const bool     operator == (const Position&) const;
+      const bool     operator <  (const Position&) const;
+
+      Position& operator = (const Position&) = default;
 
       const Position operator + (const Position&) const;
       const Position operator * (int) const;
@@ -51,7 +54,7 @@ namespace referee {
 
       std::list<unsigned int> concerned_distances;
 
-      Mask(unsigned int mask, unsigned int size, const std::list<unsigned int>& concerned_distances, unsigned int self_mask)
+      Mask(unsigned int mask, unsigned int size, const std::list<unsigned int>& concerned_distances = {}, unsigned int self_mask = 0)
           :mask(mask), size(size), self_mask(self_mask), concerned_distances(concerned_distances) { }
     };
 
@@ -67,13 +70,16 @@ namespace referee {
     identity            m_identity;
 
   public:
-    identity            operator*() { return m_identity; }
-    bool                is_empty();
+    inline identity&           operator*() { return m_identity; }
+    inline identity            operator*() const { return m_identity; }
+
     bool                is_white();
     bool                is_black();
 
     bool                is_same_color(Piece::identity);
     bool                is_other_color(Piece::identity);
+
+    bool                is_breakable();
 
     void                set_identity(identity);
 
@@ -88,15 +94,15 @@ namespace referee {
       DirectedObserver() : m_observed_states(0), m_observed_three_belonging(0), m_is_in_unbreakable_three(false) {}
     };
     std::map< const Direction, DirectedObserver >   directedObservers;
+    bool                m_is_breakable;
 
     bool                calculate_playable_by_white();
     bool                calculate_playable_by_black();
+    bool                calculate_in_unbreakable_three();
+    bool                calculate_breakable();
 
   public:
     bool                notify(const referee::Board&, const Direction& direction, int distance, const Piece& oth);
-
-  private://observable pattern
-    bool          has_status_changed;
 
   private:
     bool                                            m_cannot_be_played_as_white;
@@ -105,12 +111,11 @@ namespace referee {
 
 
   public://go rule
-    void                force_near();
     bool                can_pose(identity);
 
 
   public:
-    Piece(identity i = referee::Piece::identity::none) : m_identity(i), m_cannot_be_played_as_white(false), m_cannot_be_played_as_black(false), m_near(0) { }
+    Piece(identity i = referee::Piece::identity::none);
     Piece(const Piece&) = default;
   };
 };
