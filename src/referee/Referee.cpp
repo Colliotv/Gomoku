@@ -221,6 +221,15 @@ void referee::Referee::take(const Piece::Position& position) {
       }
       board()[oth * 2 + position].set_identity(Piece::identity::none);
       board()[oth * 1 + position].set_identity(Piece::identity::none);
+      if (m_turn == Piece::identity::white) {
+        m_white->add_taken();
+        if (m_white->taken() >= 10)
+          m_win = Piece::identity::white;
+      } else {
+        m_black->add_taken();
+        if (m_black->taken() >= 10)
+          m_win = Piece::identity::black;
+      }
     }
   }
 }
