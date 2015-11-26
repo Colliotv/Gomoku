@@ -15,7 +15,8 @@ namespace referee {
    */
   class Referee {
   private:
-    bool                      m_first_play;
+    bool                        m_first_play;
+    std::list<Piece::Position>  m_potential_win;
 
   private:
     referee::Piece::identity  m_turn;
@@ -31,18 +32,14 @@ namespace referee {
     game::Player&       white_player() { return *m_white; }
     game::Player&       black_player() { return *m_black; }
 
-  private:
-    bool                        double_three_rule(const Piece::Position&);
-
   public:
     inline referee::Board&             board() { return  m_board; }
 
   public:
-    bool                        can_pose(const Piece::Position&);
     void                        take(const Piece::Position&);
     void                        place(const Piece::Position&);
     bool                        place_at(const Piece::Position&);
-    bool                        test_potential_win(const Piece::Position&);
+    bool                        test_potential_win(const Piece::Position&, bool in_test = false);
 
   public:
     referee::Piece::identity    win() { return m_win; }
