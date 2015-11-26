@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:24:47 2015 terran_j
-// Last update Mon Nov 23 15:35:20 2015 terran_j
+// Last update Thu Nov 26 20:42:57 2015 terran_j
 //
 
 #include "graphics/sfml.hh"
@@ -50,11 +50,6 @@ int	SFML::initLib(unsigned int x, unsigned int y)
   sf::Sprite black(*texture3);
   this->_black = black;
 
-  this->_window->clear(sf::Color::Black);
-  this->_background.setPosition(0, 0);
-  this->_window->draw(this->_background);
-  this->_window->display();
-
   if (!font->loadFromFile("textures/arial.ttf"))
     return (-1);
   this->_scores.setFont(*font);
@@ -64,6 +59,158 @@ int	SFML::initLib(unsigned int x, unsigned int y)
   this->_playerTurn.setFont(*font);
 
   return (0);
+}
+
+void	SFML::startMenu()
+{
+  sf::Vector2i position;
+  sf::Event e;
+  bool play = false;
+
+  this->_isSound = true;
+  this->_isAI = true;
+  this->_areExtraRules = true;
+
+  sf::Texture *texture0 = new sf::Texture();
+  texture0->loadFromFile("textures/soundon.png");
+  sf::Sprite soundon(*texture0);
+
+  sf::Texture *texture1 = new sf::Texture();
+  texture1->loadFromFile("textures/soundoff.png");
+  sf::Sprite soundoff(*texture1);
+
+  sf::Texture *texture2 = new sf::Texture();
+  texture2->loadFromFile("textures/pvp.png");
+  sf::Sprite pvp(*texture2);
+
+  sf::Texture *texture3 = new sf::Texture();
+  texture3->loadFromFile("textures/pvia.png");
+  sf::Sprite pvia(*texture3);
+
+  sf::Texture *texture4 = new sf::Texture();
+  texture4->loadFromFile("textures/rules.png");
+  sf::Sprite rules(*texture4);
+
+  sf::Texture *texture5 = new sf::Texture();
+  texture5->loadFromFile("textures/norules.png");
+  sf::Sprite norules(*texture5);
+
+  sf::Texture *texture6 = new sf::Texture();
+  texture6->loadFromFile("textures/newgame.png");
+  sf::Sprite newgame(*texture6);
+
+  this->_window->clear(sf::Color::Black);
+  this->_background2.setPosition(0, 0);
+  this->_window->draw(this->_background2);
+
+  soundon.setPosition(600, 300);
+  this->_window->draw(soundon);
+
+  rules.setPosition(600, 400);
+  this->_window->draw(rules);
+
+  pvia.setPosition(600, 500);
+  this->_window->draw(pvia);
+
+  newgame.setPosition(600, 600);
+  this->_window->draw(newgame);
+
+  this->_window->display();
+
+  this->_soundIsHere = false;
+  while (play != true)
+    {
+      while (this->window().pollEvent(e))
+	{
+	  if (e.type == sf::Event::MouseButtonPressed)
+	    {
+	      position = this->getPosition();
+
+	      if (position.x > 600 && position.x < 900
+		  && position.y > 300 && position.y < 380)
+		{
+		  this->_isSound = !this->_isSound;
+		  if (this->_isSound == true)
+		    {
+		      soundon.setPosition(600, 300);
+		      this->_window->draw(soundon);
+		      this->_window->display();
+		    }
+		  else
+		    {
+		      soundoff.setPosition(600, 300);
+		      this->_window->draw(soundoff);
+		      this->_window->display();
+		    }
+		}
+
+	      if (position.x > 600 && position.x < 900
+		  && position.y > 400 && position.y < 480)
+		{
+		  this->_isAI = !this->_isAI;
+		  if (this->_isAI == true)
+		    {
+		      pvia.setPosition(600, 400);
+		      this->_window->draw(pvia);
+		      this->_window->display();
+		    }
+		  else
+		    {
+		      pvp.setPosition(600, 400);
+		      this->_window->draw(pvp);
+		      this->_window->display();
+		    }
+		}
+
+	      if (position.x > 600 && position.x < 900
+		  && position.y > 500 && position.y < 580)
+		{
+		  this->_areExtraRules = !this->_areExtraRules;
+		  if (this->_areExtraRules == true)
+		    {
+		      rules.setPosition(600, 500);
+		      this->_window->draw(rules);
+		      this->_window->display();
+		    }
+		  else
+		    {
+		      norules.setPosition(600, 500);
+		      this->_window->draw(norules);
+		      this->_window->display();
+		    }
+		}
+
+	      if (position.x > 600 && position.x < 900
+		  && position.y > 600 && position.y < 680)
+		{
+		  play = true;
+		  break;
+		}
+	    }
+	  else if (e.type == sf::Event::Closed)
+	    this->closeLib();
+	  else
+	    if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Key::Escape)
+	      this->closeLib();
+	}
+    }
+}
+
+void	SFML::endMenu()
+{
+  if (this->_isSound == true)
+    {
+      this->_music = new sf::Music();
+      if (!this->_music->openFromFile("textures/music.ogg"))
+  	return;
+      this->_music->play();
+      this->_soundIsHere = true;
+    }
+
+  this->_window->clear(sf::Color::Black);
+  this->_background.setPosition(0, 0);
+  this->_window->draw(this->_background);
+  this->_window->display();
 }
 
 void	SFML::refreshImg(referee::Board& board, int white_points, int black_points, referee::Piece::identity victory)
@@ -180,9 +327,13 @@ void	SFML::affPlayerTurn(const std::string &toAff, unsigned int x, unsigned int 
 
 void    SFML::closeLib()
 {
-  this->_music->stop();
-  delete(this->_music);
+  if (this->_soundIsHere == true)
+    {
+      this->_music->stop();
+      delete(this->_music);
+    }
   this->_window->close();
+  exit(0);
 }
 
 sf::Vector2i	SFML::getPosition()

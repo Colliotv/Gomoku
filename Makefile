@@ -5,7 +5,7 @@
 ## Login   <terran_j@epitech.net>
 ##
 ## Started on  Tue Oct 27 11:16:18 2015 terran_j
-## Last update Sat Nov 21 19:43:35 2015 terran_j
+## Last update Thu Nov 26 20:29:51 2015 terran_j
 ##
 
 NAME	=	gomoku
@@ -21,7 +21,7 @@ OBJ	=       $(SRC:.cpp=.o)
 
 CXX  =          g++
 
-CXXFLAGS =	-Wall -Wextra -Werror -I ./includes/ -std=gnu++11 -g
+CXXFLAGS +=	-Wall -Wextra -Werror -I ./includes/ -std=gnu++11
 
 LDFLAGS =       -lpthread -lX11 -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 

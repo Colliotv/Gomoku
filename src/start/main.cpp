@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:16:54 2015 terran_j
-// Last update Sat Nov 21 20:27:26 2015 terran_j
+// Last update Thu Nov 26 20:03:54 2015 terran_j
 //
 
 #include <thread>
@@ -15,21 +15,18 @@
 
 int	main()
 {
-  referee::Referee _referee;
   SFML *lib = new SFML();
   sf::Vector2i position;
   sf::Vector2i gridPos;
-
-  lib->_music = new sf::Music();
-  if (!lib->_music->openFromFile("textures/music.ogg"))
-    return (-1);
-  lib->_music->play();
 
   XInitThreads();
   if (lib->initLib(WIDTH, HEIGHT) == -1)
     return (-1);
 
-  //menu a faire ici
+  lib->startMenu();
+  lib->endMenu();
+
+  referee::Referee _referee;
 
   // boucle de jeu:
   while (lib->window().isOpen()) {
@@ -54,6 +51,5 @@ int	main()
         lib->closeLib();
     }
   }
-
   return (0);
 }
