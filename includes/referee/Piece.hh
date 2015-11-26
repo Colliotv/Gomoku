@@ -26,8 +26,8 @@ namespace referee {
       Position(Position&&) = default;
       Position(const Position&) = default;
 
-      const bool     operator == (const Position&) const;
-      const bool     operator <  (const Position&) const;
+      bool     operator == (const Position&) const;
+      bool     operator <  (const Position&) const;
 
       Position& operator = (const Position&) = default;
 

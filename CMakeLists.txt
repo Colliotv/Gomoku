@@ -3,7 +3,7 @@ project(Gomoku)
 
 set(CMAKE_COVERAGE_LINK_FLAGS    "-lpthread -lX11 -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -Werror")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${CMAKE_COVERAGE_LINK_FLAGS}")
 set(CMAKE_CXX clang++)
 

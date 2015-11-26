@@ -11,11 +11,11 @@ namespace referee {
   /*
    * Position
    */
-  const bool            Piece::Position::operator == (const Position& oth) const {
+  bool            Piece::Position::operator == (const Position& oth) const {
     return oth.x == x && oth.y == y;
   }
 
-  const bool            Piece::Position::operator<(const Position& oth) const {
+  bool            Piece::Position::operator<(const Position& oth) const {
     return x < oth.x || (x == oth.x && y < oth.y);
   }
 
@@ -203,7 +203,7 @@ namespace referee {
                                                                 });
 
 
-  bool Piece::notify(const Board& board, const Direction& direction, int distance, const Piece& oth)
+  bool Piece::notify(const Board&, const Direction& direction, int distance, const Piece& oth)
   {
 
     if (oth.m_identity != identity::none && (distance == 1 || distance == -1)) {
@@ -422,7 +422,7 @@ namespace referee {
         }
       }
 
-      next_direction:0;
+      next_direction:;
     }
     return potential_three_overlapping > 1;
   }
