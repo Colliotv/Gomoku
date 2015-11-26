@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:24:47 2015 terran_j
-// Last update Thu Nov 26 20:42:57 2015 terran_j
+// Last update Thu Nov 26 22:06:45 2015 terran_j
 //
 
 #include "graphics/sfml.hh"
@@ -106,11 +106,11 @@ void	SFML::startMenu()
   soundon.setPosition(600, 300);
   this->_window->draw(soundon);
 
-  rules.setPosition(600, 400);
-  this->_window->draw(rules);
-
-  pvia.setPosition(600, 500);
+  pvia.setPosition(600, 400);
   this->_window->draw(pvia);
+
+  rules.setPosition(600, 500);
+  this->_window->draw(rules);
 
   newgame.setPosition(600, 600);
   this->_window->draw(newgame);
