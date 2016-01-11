@@ -116,7 +116,7 @@ namespace referee {
 
   public:
     Piece(identity i = referee::Piece::identity::none);
-    Piece(const Piece&) = default;
+    Piece(const Piece& piece) = default;
   };
 };
 
