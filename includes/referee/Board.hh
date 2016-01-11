@@ -18,6 +18,7 @@ namespace referee {
 
   public:
     Board() = default;
+    Board(const Board&) = default;
 
   public:
     referee::Piece&   operator [] (const Piece::Position&);
