@@ -34,7 +34,7 @@ namespace referee {
 
   public:
     inline referee::Board&             board() { return  m_board; }
-
+    inline referee::Board             board_copy() { return referee::Board(m_board); }
   public:
     void                        take(const Piece::Position&);
     void                        place(const Piece::Position&);
