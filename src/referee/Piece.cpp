@@ -69,6 +69,10 @@ namespace referee {
     return m_identity == Piece::identity::white;
   }
 
+  bool Piece::is_none()
+  {
+    return m_identity == Piece::identity::none;
+  }
 
   bool Piece::is_same_color(Piece::identity identity)
   {

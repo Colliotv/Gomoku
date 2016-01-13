@@ -43,6 +43,8 @@ namespace referee {
 
   public:
     referee::Piece::identity    win() { return m_win; }
+    inline bool                 getFirstPlay() { return m_first_play; }
+    inline referee::Piece::identity getMTurn() {return m_turn; }
 
   public:
     Referee(game::Player* white = new game::Player(), game::Player* black = new game::Player());

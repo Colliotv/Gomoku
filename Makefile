@@ -15,7 +15,8 @@ SRC	=       src/start/main.cpp \
 		src/referee/Board.cpp \
 		src/referee/Piece.cpp \
 		src/referee/Referee.cpp \
-		src/game/Player.cpp
+		src/game/Player.cpp \
+		src/IAminmax/IAminmax.cpp
 
 OBJ	=       $(SRC:.cpp=.o)
 
