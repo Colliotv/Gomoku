@@ -75,6 +75,7 @@ namespace referee {
 
     bool                is_white();
     bool                is_black();
+    bool                is_none();
 
     bool                is_same_color(Piece::identity);
     bool                is_other_color(Piece::identity);

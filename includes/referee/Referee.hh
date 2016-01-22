@@ -34,7 +34,7 @@ namespace referee {
 
   public:
     inline referee::Board&             board() { return  m_board; }
-
+    inline referee::Board             board_copy() { return referee::Board(m_board); }
   public:
     void                        take(const Piece::Position&);
     void                        place(const Piece::Position&);
@@ -43,6 +43,8 @@ namespace referee {
 
   public:
     referee::Piece::identity    win() { return m_win; }
+    inline bool                 getFirstPlay() { return m_first_play; }
+    inline referee::Piece::identity getMTurn() {return m_turn; }
 
   public:
     Referee(game::Player* white = new game::Player(), game::Player* black = new game::Player());
