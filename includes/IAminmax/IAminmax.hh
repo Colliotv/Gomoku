@@ -7,7 +7,7 @@
 
 #include "referee/Referee.hh"
 
-class IAminmax : game::Player
+class IAminmax : public game::Player
 {
 private:
     referee::Referee* _referee;

@@ -5,6 +5,7 @@
 #include <bits/stl_pair.h>
 #include <iostream>
 #include "referee/Referee.hh"
+#include "IAminmax/IAminmax.hh"
 
 static const std::array< referee::Piece::Position, 8> directions({
       referee::Piece::Position{ 0, -1},
@@ -129,4 +130,18 @@ bool referee::Referee::test_potential_win(const referee::Piece::Position& positi
 bool referee::Referee::human_turn()
 {
   return m_turn == referee::Piece::identity::black ? m_black->is_human() : m_white->is_human();
+}
+
+void referee::Referee::ia_place()
+{
+  switch (m_turn){
+    case Piece::identity::white:
+      dynamic_cast<IAminmax*>(m_white)->IaTurn();
+      break;
+    case Piece::identity::black:
+      dynamic_cast<IAminmax*>(m_black)->IaTurn();
+      break;
+  case Piece::identity::none:break;
+  case Piece::identity::out:break;
+  }
 }
