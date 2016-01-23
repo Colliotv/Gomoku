@@ -11,7 +11,7 @@ class IAminmax : game::Player
 {
 private:
     referee::Referee _referee;
-    int _depth;
+    const int _depth;
 
 private:
     double  min(referee::Referee ref, int depth);
@@ -21,11 +21,12 @@ private:
     int     countRow(referee::Piece::identity playerTurn, int n);
 
 public:
-    IAminmax(referee::Referee& referee, const referee::Piece::identity& identity, int depth = 3);
+    IAminmax(const referee::Piece::identity& identity, int depth = 3);
     ~IAminmax() {};
 
 public:
     void IaTurn();
+    inline void setReferee(referee::Referee& ref) {this->_referee = ref;}
 };
 
 

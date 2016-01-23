@@ -6,10 +6,9 @@
 #include <referee/Referee.hh>
 #include <IAminmax/IAminmax.hh>
 
-IAminmax::IAminmax(referee::Referee& referee, const referee::Piece::identity& identity, int depth) : Player(identity)
+IAminmax::IAminmax(const referee::Piece::identity& identity, int depth) : Player(identity), _depth(depth)
 {
-    this->_referee = referee;
-    this->_depth = depth;
+    this->_referee = nullptr;;
 }
 
 int IAminmax::countRow(referee::Piece::identity playerTurn, int n)
