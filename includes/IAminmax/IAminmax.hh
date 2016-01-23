@@ -10,7 +10,7 @@
 class IAminmax : game::Player
 {
 private:
-    referee::Referee _referee;
+    referee::Referee* _referee;
     const int _depth;
 
 private:
@@ -26,7 +26,7 @@ public:
 
 public:
     void IaTurn();
-    inline void setReferee(referee::Referee& ref) {this->_referee = ref;}
+    inline void setReferee(referee::Referee* ref) {this->_referee = ref;}
 };
 
 
