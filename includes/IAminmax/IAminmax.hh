@@ -7,12 +7,11 @@
 
 #include "referee/Referee.hh"
 
-class IAminmax
+class IAminmax : game::Player
 {
 private:
     referee::Referee _referee;
     int _depth;
-    referee::Piece::identity _myColor;
 
 private:
     double min(referee::Referee ref, int depth);
@@ -22,7 +21,7 @@ private:
     int countRow(referee::Piece::identity playerTurn, int n);
 
 public:
-    IAminmax(referee::Referee referee, int depth, referee::Piece::identity myColor);
+    IAminmax(referee::Referee& referee, int depth = 3);
     ~IAminmax() {};
 
 public:

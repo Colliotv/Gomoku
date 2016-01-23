@@ -6,11 +6,10 @@
 #include <referee/Referee.hh>
 #include <IAminmax/IAminmax.hh>
 
-IAminmax::IAminmax(referee::Referee referee, int depth, referee::Piece::identity myColor)
+IAminmax::IAminmax(referee::Referee& referee , int depth)
 {
     this->_referee = referee;
     this->_depth = depth;
-    this->_myColor = myColor;
 }
 
 int IAminmax::countRow(referee::Piece::identity playerTurn, int n)
