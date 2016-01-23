@@ -31,7 +31,7 @@ int	main()
   // boucle de jeu:
   while (lib->window().isOpen()) {
     sf::Event e;
-    while (lib->window().pollEvent(e)) {
+    while (!_referee.human_turn() || lib->window().pollEvent(e)) {
       if (e.type == sf::Event::MouseButtonPressed) {
         position = lib->getPosition();
         gridPos = lib->pixelToBoardPos(position);

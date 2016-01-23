@@ -125,3 +125,8 @@ bool referee::Referee::test_potential_win(const referee::Piece::Position& positi
 
   return false;
 }
+
+bool referee::Referee::human_turn()
+{
+  return m_turn == referee::Piece::identity::black ? m_black->is_human() : m_white->is_human();
+}
