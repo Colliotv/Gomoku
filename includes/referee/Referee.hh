@@ -31,10 +31,12 @@ namespace referee {
   public:
     game::Player&       white_player() { return *m_white; }
     game::Player&       black_player() { return *m_black; }
+    bool                human_turn();
 
   public:
     inline referee::Board&             board() { return  m_board; }
     inline referee::Board             board_copy() { return referee::Board(m_board); }
+
   public:
     void                        take(const Piece::Position&);
     void                        place(const Piece::Position&);
@@ -47,7 +49,7 @@ namespace referee {
     inline referee::Piece::identity getMTurn() {return m_turn; }
 
   public:
-    Referee(game::Player* white = new game::Player(), game::Player* black = new game::Player());
+    Referee(game::Player* white = new game::Player(Piece::identity::white), game::Player* black = new game::Player(Piece::identity::black));
   };
 
 };

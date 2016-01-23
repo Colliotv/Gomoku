@@ -17,7 +17,7 @@ namespace referee {
     bool              is_out(const Piece::Position&);
 
   public:
-    Board() = default;
+    Board()             = default;
     Board(const Board&) = default;
 
   public:
