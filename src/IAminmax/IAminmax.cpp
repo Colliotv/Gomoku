@@ -172,7 +172,3 @@ void IAminmax::IaTurn() {
     }
     this->_referee->place_at(bestMove);
 }
-
-bool IAminmax::is_human() {
-    return Player::is_human();
-}
