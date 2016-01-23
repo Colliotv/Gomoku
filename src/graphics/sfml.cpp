@@ -23,8 +23,8 @@ int	SFML::initLib(unsigned int x, unsigned int y)
   sf::Font *font = new sf::Font();
 
   n = new sf::RenderWindow(sf::VideoMode(x, y),
-      "Gomoku",
-      sf::Style::Titlebar | sf::Style::Close);
+                           "Gomoku",
+                           sf::Style::Titlebar | sf::Style::Close);
 
   this->_window = n;
   this->_x = x;
@@ -118,94 +118,94 @@ void	SFML::startMenu()
   this->_window->display();
 
   this->SoundIsHere = false;
-  while (play != true)
+  while (!play)
+  {
+    while (this->window().pollEvent(e))
     {
-      while (this->window().pollEvent(e))
-	{
-	  if (e.type == sf::Event::MouseButtonPressed)
-	    {
-	      position = this->getPosition();
+      if (e.type == sf::Event::MouseButtonPressed)
+      {
+        position = this->getPosition();
 
-	      if (position.x > 600 && position.x < 900
-		  && position.y > 300 && position.y < 380)
-		{
-		  this->IsSound = !this->IsSound;
-		  if (this->IsSound == true)
-		    {
-		      soundon.setPosition(600, 300);
-		      this->_window->draw(soundon);
-		      this->_window->display();
-		    }
-		  else
-		    {
-		      soundoff.setPosition(600, 300);
-		      this->_window->draw(soundoff);
-		      this->_window->display();
-		    }
-		}
+        if (position.x > 600 && position.x < 900
+            && position.y > 300 && position.y < 380)
+        {
+          this->IsSound = !this->IsSound;
+          if (this->IsSound)
+          {
+            soundon.setPosition(600, 300);
+            this->_window->draw(soundon);
+            this->_window->display();
+          }
+          else
+          {
+            soundoff.setPosition(600, 300);
+            this->_window->draw(soundoff);
+            this->_window->display();
+          }
+        }
 
-	      if (position.x > 600 && position.x < 900
-		  && position.y > 400 && position.y < 480)
-		{
-		  this->IsAI = !this->IsAI;
-		  if (this->IsAI == true)
-		    {
-		      pvia.setPosition(600, 400);
-		      this->_window->draw(pvia);
-		      this->_window->display();
-		    }
-		  else
-		    {
-		      pvp.setPosition(600, 400);
-		      this->_window->draw(pvp);
-		      this->_window->display();
-		    }
-		}
+        if (position.x > 600 && position.x < 900
+            && position.y > 400 && position.y < 480)
+        {
+          this->IsAI = !this->IsAI;
+          if (this->IsAI)
+          {
+            pvia.setPosition(600, 400);
+            this->_window->draw(pvia);
+            this->_window->display();
+          }
+          else
+          {
+            pvp.setPosition(600, 400);
+            this->_window->draw(pvp);
+            this->_window->display();
+          }
+        }
 
-	      if (position.x > 600 && position.x < 900
-		  && position.y > 500 && position.y < 580)
-		{
-		  this->AreExtraRules = !this->AreExtraRules;
-		  if (this->AreExtraRules == true)
-		    {
-		      rules.setPosition(600, 500);
-		      this->_window->draw(rules);
-		      this->_window->display();
-		    }
-		  else
-		    {
-		      norules.setPosition(600, 500);
-		      this->_window->draw(norules);
-		      this->_window->display();
-		    }
-		}
+        if (position.x > 600 && position.x < 900
+            && position.y > 500 && position.y < 580)
+        {
+          this->AreExtraRules = !this->AreExtraRules;
+          if (this->AreExtraRules)
+          {
+            rules.setPosition(600, 500);
+            this->_window->draw(rules);
+            this->_window->display();
+          }
+          else
+          {
+            norules.setPosition(600, 500);
+            this->_window->draw(norules);
+            this->_window->display();
+          }
+        }
 
-	      if (position.x > 600 && position.x < 900
-		  && position.y > 600 && position.y < 680)
-		{
-		  play = true;
-		  break;
-		}
-	    }
-	  else if (e.type == sf::Event::Closed)
-	    this->closeLib();
-	  else
-	    if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Key::Escape)
-	      this->closeLib();
-	}
+        if (position.x > 600 && position.x < 900
+            && position.y > 600 && position.y < 680)
+        {
+          play = true;
+          break;
+        }
+      }
+      else if (e.type == sf::Event::Closed)
+        this->closeLib();
+      else
+      if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Key::Escape)
+        this->closeLib();
     }
+  }
 }
 
 void	SFML::endMenu()
 {
   if (this->IsSound == true)
-    {
-      this->_music = new sf::Music();
-      if (!this->_music->openFromFile("textures/music.ogg"))
-  	return;
-      this->_music->play();
-      this->SoundIsHere = true;
-    }
+  {
+    this->_music = new sf::Music();
+    if (!this->_music->openFromFile("textures/music.ogg"))
+      return;
+    this->_music->play();
+    this->SoundIsHere = true;
+  }
 
   this->_window->clear(sf::Color::Black);
   this->_background.setPosition(0, 0);
@@ -249,20 +249,20 @@ void	SFML::refreshImg(referee::Board& board, referee::Piece::identity identity, 
 
     referee::Piece::Position p({0, 0});
     while (p.x < 19)
+    {
+      while (p.y < 19)
       {
-	while (p.y < 19)
-	  {
-	    pixelPos = XYToPixels(p.x, p.y);
+        pixelPos = XYToPixels(p.x, p.y);
 
-	    if (board[p].is_black())
-	      putBlack(pixelPos);
-	    else if (board[p].is_white())
-	      putWhite(pixelPos);
-	    ++p.y;
-	  }
-	p.y = 0;
-	++p.x;
+        if (board[p].is_black())
+          putBlack(pixelPos);
+        else if (board[p].is_white())
+          putWhite(pixelPos);
+        ++p.y;
       }
+      p.y = 0;
+      ++p.x;
+    }
 
     this->_window->draw(this->_scores);
     this->_window->draw(this->_scoreWhite);
@@ -271,19 +271,19 @@ void	SFML::refreshImg(referee::Board& board, referee::Piece::identity identity, 
 
   }
   else
+  {
+    if (victory == referee::Piece::identity::white)
     {
-      if (victory == referee::Piece::identity::white)
-	{
-	  this->affVictory("White victory !", 400, 400);
-	}
-      else
-	{
-	  this->affVictory("Black victory !", 400, 400);
-	}
-      this->_background2.setPosition(0, 0);
-      this->_window->draw(this->_background2);
-      this->_window->draw(this->_victory);
+      this->affVictory("White victory !", 400, 400);
     }
+    else
+    {
+      this->affVictory("Black victory !", 400, 400);
+    }
+    this->_background2.setPosition(0, 0);
+    this->_window->draw(this->_background2);
+    this->_window->draw(this->_victory);
+  }
 
   this->_window->display();
 }
@@ -331,10 +331,10 @@ void	SFML::affPlayerTurn(const std::string &toAff, unsigned int x, unsigned int 
 void    SFML::closeLib()
 {
   if (this->SoundIsHere == true)
-    {
-      this->_music->stop();
-      delete(this->_music);
-    }
+  {
+    this->_music->stop();
+    delete(this->_music);
+  }
   this->_window->close();
   exit(0);
 }

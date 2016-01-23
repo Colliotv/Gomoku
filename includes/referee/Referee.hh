@@ -60,6 +60,7 @@ namespace referee {
 
   public:
     Referee(game::Player* white = new game::Player(Piece::identity::white), game::Player* black = new game::Player(Piece::identity::black));
+    void ia_place();
   };
 
 };

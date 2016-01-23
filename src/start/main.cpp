@@ -9,9 +9,9 @@
 //
 
 #include <thread>
-#include <iostream>
 #include "graphics/sfml.hh"
 #include "referee/Referee.hh"
+#include "IAminmax/IAminmax.hh"
 
 int	main()
 {
@@ -28,7 +28,7 @@ int	main()
 
   referee::Referee* _referee;
   if (lib->IsAI)
-    _referee = new referee::Referee(new game::Player(referee::Piece::identity::black), new game::Player(referee::Piece::identity::white));
+    _referee = new referee::Referee(new game::Player(referee::Piece::identity::black), new IAminmax(referee::Piece::identity::white));
   else
     _referee = new referee::Referee();
 
@@ -36,7 +36,9 @@ int	main()
   while (lib->window().isOpen()) {
     sf::Event e;
     while (!_referee->human_turn() || lib->window().pollEvent(e)) {
-      if (e.type == sf::Event::MouseButtonPressed) {
+      if (!_referee->human_turn())
+        _referee->ia_place();
+      else if (e.type == sf::Event::MouseButtonPressed) {
         position = lib->getPosition();
         gridPos = lib->pixelToBoardPos(position);
         if (gridPos.x!=-1 and gridPos.y!=-1) {

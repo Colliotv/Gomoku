@@ -102,7 +102,7 @@ double IAminmax::max(referee::Referee& ref, int depth)
         pos.x = 0;
         for (; pos.x < 19; pos.x++)
         {
-            referee::Referee tmpRef(this->_referee.copy());
+            referee::Referee tmpRef(this->_referee->copy());
             if (tmpRef.place_at(pos)) {
                 tmpScore = max(tmpRef, depth - 1);
                 if (tmpScore > maxScore)
@@ -125,7 +125,7 @@ double IAminmax::min(referee::Referee& ref, int depth) {
         pos.x = 0;
         for (; pos.x < 19; pos.x++)
         {
-            referee::Referee tmpRef(this->_referee);
+            referee::Referee tmpRef(this->_referee->copy());
             if (tmpRef.place_at(pos)) {
                 tmpScore = max(tmpRef, depth - 1);
                 if (tmpScore < minScore)
@@ -153,7 +153,7 @@ void IAminmax::IaTurn() {
         pos.x = 0;
         for (; pos.x < 19; pos.x++)
         {
-            referee::Referee tmpRef(this->_referee);
+            referee::Referee tmpRef(this->_referee->copy());
             if (tmpRef.place_at(pos)) {
                 if (tmpRef.win() != referee::Piece::identity::none)
                 {
