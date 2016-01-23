@@ -25,13 +25,13 @@ int IAminmax::countRow(referee::Piece::identity playerTurn, int n)
         pos.x = 0;
         for (; pos.x < 19; pos.x++)
         {
-            if (this->_referee.board()[pos].is_same_color(playerTurn))
+            if (this->_referee->board()[pos].is_same_color(playerTurn))
                 actCount += 1;
             else
             {
-                if (this->_referee.board()[pos].is_none())
+                if (this->_referee->board()[pos].is_none())
                     haveSpace = true;
-                else if (this->_referee.board()[pos].is_other_color(playerTurn))
+                else if (this->_referee->board()[pos].is_other_color(playerTurn))
                     haveSpace = false;
                 if (haveSpace && actCount == n)
                     serieCt += 1;
@@ -48,13 +48,13 @@ int IAminmax::countRow(referee::Piece::identity playerTurn, int n)
         pos.y = 0;
         for (; pos.y < 19; pos.y++)
         {
-            if (this->_referee.board()[pos].is_same_color(playerTurn))
+            if (this->_referee->board()[pos].is_same_color(playerTurn))
                 actCount += 1;
             else
             {
-                if (this->_referee.board()[pos].is_none())
+                if (this->_referee->board()[pos].is_none())
                     haveSpace = true;
-                else if (this->_referee.board()[pos].is_other_color(playerTurn))
+                else if (this->_referee->board()[pos].is_other_color(playerTurn))
                     haveSpace = false;
                 if (haveSpace && actCount == n)
                     serieCt += 1;
@@ -142,9 +142,9 @@ void IAminmax::IaTurn() {
     referee::Piece::Position bestMove(0,0);
     referee::Piece::Position pos(0,0);
 
-    if (this->_referee.getFirstPlay())
+    if (this->_referee->getFirstPlay())
     {
-        this->_referee.place_at(referee::Piece::Position(9,9));
+        this->_referee->place_at(referee::Piece::Position(9,9));
         return;
     }
 
@@ -157,7 +157,7 @@ void IAminmax::IaTurn() {
             if (tmpRef.place_at(pos)) {
                 if (tmpRef.win() != referee::Piece::identity::none)
                 {
-                    this->_referee.place_at(pos);
+                    this->_referee->place_at(pos);
                     return;
                 }
                 tmpScore = min(tmpRef, this->_depth - 1);
@@ -170,5 +170,5 @@ void IAminmax::IaTurn() {
             }
         }
     }
-    this->_referee.place_at(bestMove);
+    this->_referee->place_at(bestMove);
 }

@@ -26,7 +26,7 @@ public:
 
 public:
     void IaTurn();
-    inline void setReferee(referee::Referee& ref) {this->_referee = ref;}
+    inline void setReferee(referee::Referee* ref) {this->_referee = ref;}
 };
 
 
