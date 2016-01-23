@@ -19,6 +19,7 @@ private:
     double  eval(referee::Referee& ref);
     double  countScore(referee::Piece::identity playerTurn);
     int     countRow(referee::Piece::identity playerTurn, int n);
+    virtual bool is_human() override {return false;}
 
 public:
     IAminmax(const referee::Piece::identity& identity, int depth = 3);

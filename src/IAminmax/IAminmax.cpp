@@ -8,7 +8,7 @@
 
 IAminmax::IAminmax(const referee::Piece::identity& identity, int depth) : Player(identity), _depth(depth)
 {
-    this->_referee = nullptr;;
+    this->_referee = nullptr;
 }
 
 int IAminmax::countRow(referee::Piece::identity playerTurn, int n)
