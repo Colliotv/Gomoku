@@ -34,7 +34,7 @@ namespace referee {
     bool                human_turn();
 
   public:
-    inline referee::Board&             board() { return  m_board; }
+    inline referee::Board&            board() { return  m_board; }
     inline referee::Board             board_copy() { return referee::Board(m_board); }
 
   public:

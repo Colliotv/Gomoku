@@ -67,9 +67,9 @@ void	SFML::startMenu()
   sf::Event e;
   bool play = false;
 
-  this->_isSound = true;
-  this->_isAI = true;
-  this->_areExtraRules = true;
+  this->IsSound = true;
+  this->IsAI = true;
+  this->AreExtraRules = true;
 
   sf::Texture *texture0 = new sf::Texture();
   texture0->loadFromFile("textures/soundon.png");
@@ -117,7 +117,7 @@ void	SFML::startMenu()
 
   this->_window->display();
 
-  this->_soundIsHere = false;
+  this->SoundIsHere = false;
   while (play != true)
     {
       while (this->window().pollEvent(e))
@@ -129,8 +129,8 @@ void	SFML::startMenu()
 	      if (position.x > 600 && position.x < 900
 		  && position.y > 300 && position.y < 380)
 		{
-		  this->_isSound = !this->_isSound;
-		  if (this->_isSound == true)
+		  this->IsSound = !this->IsSound;
+		  if (this->IsSound == true)
 		    {
 		      soundon.setPosition(600, 300);
 		      this->_window->draw(soundon);
@@ -147,8 +147,8 @@ void	SFML::startMenu()
 	      if (position.x > 600 && position.x < 900
 		  && position.y > 400 && position.y < 480)
 		{
-		  this->_isAI = !this->_isAI;
-		  if (this->_isAI == true)
+		  this->IsAI = !this->IsAI;
+		  if (this->IsAI == true)
 		    {
 		      pvia.setPosition(600, 400);
 		      this->_window->draw(pvia);
@@ -165,8 +165,8 @@ void	SFML::startMenu()
 	      if (position.x > 600 && position.x < 900
 		  && position.y > 500 && position.y < 580)
 		{
-		  this->_areExtraRules = !this->_areExtraRules;
-		  if (this->_areExtraRules == true)
+		  this->AreExtraRules = !this->AreExtraRules;
+		  if (this->AreExtraRules == true)
 		    {
 		      rules.setPosition(600, 500);
 		      this->_window->draw(rules);
@@ -198,13 +198,13 @@ void	SFML::startMenu()
 
 void	SFML::endMenu()
 {
-  if (this->_isSound == true)
+  if (this->IsSound == true)
     {
       this->_music = new sf::Music();
       if (!this->_music->openFromFile("textures/music.ogg"))
   	return;
       this->_music->play();
-      this->_soundIsHere = true;
+      this->SoundIsHere = true;
     }
 
   this->_window->clear(sf::Color::Black);
@@ -213,7 +213,7 @@ void	SFML::endMenu()
   this->_window->display();
 }
 
-void	SFML::refreshImg(referee::Board& board, int white_points, int black_points, referee::Piece::identity victory)
+void	SFML::refreshImg(referee::Board& board, referee::Piece::identity identity, int white_points, int black_points, referee::Piece::identity victory)
 {
   sf::Vector2i pixelPos;
   sf::Vector2i scoresPosWhite;
@@ -242,7 +242,10 @@ void	SFML::refreshImg(referee::Board& board, int white_points, int black_points,
     this->affScoreBlack(std::to_string(black_points), 1000, 250);
 
     // aff qui joue:
-    this->affPlayerTurn("Tour de machin", 900, 500);
+    if (identity == referee::Piece::identity::white)
+      this->affPlayerTurn("White Turn", 900, 500);
+    if (identity == referee::Piece::identity::black)
+      this->affPlayerTurn("Black Turn", 900, 500);
 
     referee::Piece::Position p({0, 0});
     while (p.x < 19)
@@ -327,7 +330,7 @@ void	SFML::affPlayerTurn(const std::string &toAff, unsigned int x, unsigned int 
 
 void    SFML::closeLib()
 {
-  if (this->_soundIsHere == true)
+  if (this->SoundIsHere == true)
     {
       this->_music->stop();
       delete(this->_music);

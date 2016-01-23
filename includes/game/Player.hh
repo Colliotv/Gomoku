@@ -23,7 +23,7 @@ namespace game {
 
   public:
     Player(const referee::Piece::identity& identity)
-        :m_identity(identity) { }
+        :m_taken(0), m_identity(identity) { }
 
   };
 

@@ -41,7 +41,7 @@ public:
   void startMenu();
   void endMenu();
   int initLib(unsigned int x, unsigned int y);
-  void refreshImg(referee::Board&, int white_points, int black_points, referee::Piece::identity);
+  void refreshImg(referee::Board&, referee::Piece::identity, int white_points, int black_points, referee::Piece::identity);
   void affScores(const std::string &toAff, unsigned int x, unsigned int y);
   void affScoreWhite(const std::string &toAff, unsigned int x, unsigned int y);
   void affScoreBlack(const std::string &toAff, unsigned int x, unsigned int y);
@@ -71,10 +71,11 @@ private:
   sf::Text _victory;
   sf::Text _playerTurn;
 
-  bool _isSound;
-  bool _soundIsHere;
-  bool _isAI;
-  bool _areExtraRules;
+public:
+  bool IsSound;
+  bool SoundIsHere;
+  bool IsAI;
+  bool AreExtraRules;
 };
 
 #endif

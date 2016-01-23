@@ -26,22 +26,29 @@ int	main()
   lib->startMenu();
   lib->endMenu();
 
-  referee::Referee _referee;
+  referee::Referee* _referee;
+  if (lib->IsAI)
+    _referee = new referee::Referee(new game::Player(referee::Piece::identity::black), new game::Player(referee::Piece::identity::white));
+  else
+    _referee = new referee::Referee();
 
   // boucle de jeu:
   while (lib->window().isOpen()) {
     sf::Event e;
-    while (!_referee.human_turn() || lib->window().pollEvent(e)) {
+    while (!_referee->human_turn() || lib->window().pollEvent(e)) {
       if (e.type == sf::Event::MouseButtonPressed) {
         position = lib->getPosition();
         gridPos = lib->pixelToBoardPos(position);
         if (gridPos.x!=-1 and gridPos.y!=-1) {
           // envoyer gridPos a lyoko ici:
-          _referee.place_at(referee::Piece::Position({gridPos.x, gridPos.y}));
+          _referee->place_at(referee::Piece::Position({gridPos.x, gridPos.y}));
           // puis si il confirme que c'est good il me renvoie la map completée
 
           // puis j'affiche la map dans refresh image:
-          lib->refreshImg(_referee.board(), _referee.white_player().taken(), _referee.black_player().taken(), _referee.win());
+          lib->refreshImg(_referee->board(),
+                          _referee->getMTurn(),
+                          _referee->white_player().taken(), _referee->black_player().taken(),
+                          _referee->win());
         }
       } else
       if (e.type == sf::Event::Closed)
