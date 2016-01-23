@@ -77,7 +77,7 @@ double IAminmax::countScore(referee::Piece::identity playerTurn)
     return score;
 }
 
-double IAminmax::eval(referee::Referee ref)
+double IAminmax::eval(referee::Referee& ref)
 {
     if (ref.win() == this->m_identity)
         return (10000);
@@ -89,7 +89,7 @@ double IAminmax::eval(referee::Referee ref)
     }
 }
 
-double IAminmax::max(referee::Referee ref, int depth)
+double IAminmax::max(referee::Referee& ref, int depth)
 {
     double maxScore = -100000;
     double tmpScore = 0;
@@ -102,7 +102,7 @@ double IAminmax::max(referee::Referee ref, int depth)
         pos.x = 0;
         for (; pos.x < 19; pos.x++)
         {
-            referee::Referee tmpRef(this->_referee);
+            referee::Referee tmpRef(this->_referee.copy());
             if (tmpRef.place_at(pos)) {
                 tmpScore = max(tmpRef, depth - 1);
                 if (tmpScore > maxScore)
@@ -113,7 +113,7 @@ double IAminmax::max(referee::Referee ref, int depth)
     return maxScore;
 }
 
-double IAminmax::min(referee::Referee ref, int depth) {
+double IAminmax::min(referee::Referee& ref, int depth) {
     double minScore = 100000;
     double tmpScore = 0;
     referee::Piece::Position pos(0,0);

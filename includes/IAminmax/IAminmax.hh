@@ -10,13 +10,13 @@
 class IAminmax : game::Player
 {
 private:
-    referee::Referee _referee;
+    referee::Referee* _referee;
     const int _depth;
 
 private:
-    double  min(referee::Referee ref, int depth);
-    double  max(referee::Referee ref, int depth);
-    double  eval(referee::Referee ref);
+    double  min(referee::Referee& ref, int depth);
+    double  max(referee::Referee& ref, int depth);
+    double  eval(referee::Referee& ref);
     double  countScore(referee::Piece::identity playerTurn);
     int     countRow(referee::Piece::identity playerTurn, int n);
 

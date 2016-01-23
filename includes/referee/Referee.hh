@@ -35,7 +35,17 @@ namespace referee {
 
   public:
     inline referee::Board&            board() { return  m_board; }
-    inline referee::Board             board_copy() { return referee::Board(m_board); }
+
+  private:
+    Referee(const Referee& _referee)
+      : m_first_play(_referee.m_first_play), m_potential_win(_referee.m_potential_win),
+        m_turn(_referee.m_turn), m_board(_referee.m_board), m_win(_referee.m_win),
+        m_white(_referee.m_white->copy()), m_black(_referee.m_black->copy()) {}
+  public:
+    Referee(Referee&&) = default;
+    Referee   copy() const {
+      return *this;
+    }
 
   public:
     void                        take(const Piece::Position&);
