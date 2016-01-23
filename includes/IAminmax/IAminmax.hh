@@ -12,6 +12,7 @@ class IAminmax : game::Player
 private:
     referee::Referee* _referee;
     const int _depth;
+    int _precTaken;
 
 private:
     double  min(referee::Referee& ref, int depth);
