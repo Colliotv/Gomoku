@@ -165,7 +165,7 @@ void IAminmax::IaTurn() {
                 }
                 tmpScore = min(tmpRef, this->_depth - 1);
             }
-            if (tmpScore > maxScore || (bestMove.x == 0 && bestMove.y == 0 && tmpScore > -100000))
+            if (tmpScore > maxScore)
             {
                 maxScore = tmpScore;
                 bestMove.x = pos.x;
