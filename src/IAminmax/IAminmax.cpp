@@ -6,7 +6,7 @@
 #include <referee/Referee.hh>
 #include <IAminmax/IAminmax.hh>
 
-IAminmax::IAminmax(referee::Referee& referee , int depth)
+IAminmax::IAminmax(referee::Referee& referee, const referee::Piece::identity& identity, int depth) : Player(identity)
 {
     this->_referee = referee;
     this->_depth = depth;
@@ -80,9 +80,9 @@ double IAminmax::countScore(referee::Piece::identity playerTurn)
 
 double IAminmax::eval(referee::Referee ref)
 {
-    if (ref.win() == this->_myColor)
+    if (ref.win() == this->m_identity)
         return (10000);
-    else if (ref.win() != this->_myColor && ref.win() != referee::Piece::identity::none)
+    else if (ref.win() != this->m_identity && ref.win() != referee::Piece::identity::none)
         return (-10000);
     else
     {

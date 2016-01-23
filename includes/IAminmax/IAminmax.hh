@@ -21,7 +21,7 @@ private:
     int     countRow(referee::Piece::identity playerTurn, int n);
 
 public:
-    IAminmax(referee::Referee& referee, int depth = 3);
+    IAminmax(referee::Referee& referee, const referee::Piece::identity& identity, int depth = 3);
     ~IAminmax() {};
 
 public:

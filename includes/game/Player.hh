@@ -10,7 +10,7 @@
 namespace game {
 
   class Player {
-  private:
+  protected:
     int m_taken;
     referee::Piece::identity m_identity;
 
