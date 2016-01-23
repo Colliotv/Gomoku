@@ -56,19 +56,16 @@ bool referee::Referee::place_at(const Piece::Position& _position)
   else
     m_turn = Piece::identity::black;
 
-  return true;
+  return false;
 }
 
-referee::Referee::Referee(game::Player* white, game::Player* black)
+referee::Referee::Referee(game::Player* black, game::Player* white)
     : m_first_play(true), m_turn(referee::Piece::identity::black), m_win(referee::Piece::identity::none), m_white(white), m_black(black) {}
 
 void referee::Referee::place(const Piece::Position& position)
 {
-  std::cout << "place" << std::endl;
   board()[position].set_identity(m_turn);
-  std::cout << "notify" << std::endl;
   board().notify(position);
-  std::cout << "notified" << std::endl;
 }
 
 void referee::Referee::take(const Piece::Position& position) {

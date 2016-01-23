@@ -27,8 +27,11 @@ int	main()
   lib->endMenu();
 
   referee::Referee* _referee;
-  if (lib->IsAI)
-    _referee = new referee::Referee(new game::Player(referee::Piece::identity::black), new IAminmax(referee::Piece::identity::white));
+  if (lib->IsAI) {
+    IAminmax* iAminmax;
+    _referee = new referee::Referee(new game::Player(referee::Piece::identity::black), iAminmax = new IAminmax(referee::Piece::identity::white));
+    iAminmax->setReferee(_referee);
+  }
   else
     _referee = new referee::Referee();
 
