@@ -5,6 +5,7 @@
 #include <referee/Piece.hh>
 #include <referee/Referee.hh>
 #include <IAminmax/IAminmax.hh>
+#include <iostream>
 
 IAminmax::IAminmax(const referee::Piece::identity& identity, int depth) : Player(identity), _depth(depth)
 {
@@ -69,40 +70,42 @@ int IAminmax::countRow(referee::Piece::identity playerTurn, int n)
 
 double IAminmax::countScore(referee::Piece::identity playerTurn)
 {
+    std::cout << "here 1" << std::endl;
     int fourRow = countRow(playerTurn, 4);
     int threeRow = countRow(playerTurn, 3);
     int twoRow = countRow(playerTurn, 2);
+    std::cout << "here 2" << std::endl;
     double score = fourRow * 100.0 + threeRow * 5.0 + twoRow * 1.0;
     //TODO eatthemall
     return score;
 }
 
-double IAminmax::eval(referee::Referee& ref)
+double IAminmax::eval(referee::Referee* ref)
 {
-    if (ref.win() == this->m_identity)
+    if (ref->win() == this->m_identity)
         return (10000);
-    else if (ref.win() != this->m_identity && ref.win() != referee::Piece::identity::none)
+    else if (ref->win() != this->m_identity && ref->win() != referee::Piece::identity::none)
         return (-10000);
     else
     {
-        return (countScore(ref.getMTurn()));
+        return (countScore(ref->getMTurn()));
     }
 }
 
-double IAminmax::max(referee::Referee& ref, int depth)
+double IAminmax::max(referee::Referee* ref, int depth)
 {
     double maxScore = -100000;
     double tmpScore = 0;
     referee::Piece::Position pos(0,0);
 
-    if (depth == 0 || ref.win() != referee::Piece::identity::none)
+    if (depth == 0 || ref->win() != referee::Piece::identity::none)
         return eval(ref);
     for (; pos.y < 19; pos.y++)
     {
         pos.x = 0;
         for (; pos.x < 19; pos.x++)
         {
-            referee::Referee tmpRef(this->_referee->copy());
+            referee::Referee tmpRef(ref->copy());
             if (tmpRef.board()[pos].can_pose(tmpRef.getMTurn())) {
                 tmpRef.place_at(pos);
                 tmpScore = max(tmpRef, depth - 1);
@@ -114,19 +117,19 @@ double IAminmax::max(referee::Referee& ref, int depth)
     return maxScore;
 }
 
-double IAminmax::min(referee::Referee& ref, int depth) {
+double IAminmax::min(referee::Referee* ref, int depth) {
     double minScore = 100000;
     double tmpScore = 0;
     referee::Piece::Position pos(0,0);
 
-    if (depth == 0 || ref.win() != referee::Piece::identity::none)
+    if (depth == 0 || ref->win() != referee::Piece::identity::none)
         return eval(ref);
     for (; pos.y < 19; pos.y++)
     {
         pos.x = 0;
         for (; pos.x < 19; pos.x++)
         {
-            referee::Referee tmpRef(this->_referee->copy());
+            referee::Referee tmpRef(ref->copy());
             if (tmpRef.board()[pos].can_pose(tmpRef.getMTurn())) {
                 tmpRef.place_at(pos);
                 tmpScore = max(tmpRef, depth - 1);
@@ -153,24 +156,21 @@ void IAminmax::IaTurn() {
     for (; pos.y < 19; pos.y++)
     {
         pos.x = 0;
-        for (; pos.x < 19; pos.x++)
-        {
+        for (; pos.x < 19; pos.x++) {
             referee::Referee tmpRef(this->_referee->copy());
             this->_precTaken = this->taken();
             if (tmpRef.board()[pos].can_pose(tmpRef.getMTurn())) {
-                if (tmpRef.place_at(pos))
-                {
+                if (tmpRef.place_at(pos)) {
                     this->_referee->place_at(pos);
                     return;
                 }
                 tmpScore = min(tmpRef, this->_depth - 1);
-            } else
-                tmpScore = -100000;
-            if (tmpScore > maxScore)
-            {
-                maxScore = tmpScore;
-                bestMove.x = pos.x;
-                bestMove.y = pos.y;
+                std::cout << tmpScore << std::endl;
+                if (tmpScore > maxScore) {
+                    maxScore = tmpScore;
+                    bestMove.x = pos.x;
+                    bestMove.y = pos.y;
+                }
             }
         }
     }

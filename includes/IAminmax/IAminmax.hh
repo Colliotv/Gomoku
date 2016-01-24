@@ -15,9 +15,9 @@ private:
     int _precTaken;
 
 private:
-    double  min(referee::Referee& ref, int depth);
-    double  max(referee::Referee& ref, int depth);
-    double  eval(referee::Referee& ref);
+    double  min(referee::Referee* ref, int depth);
+    double  max(referee::Referee* ref, int depth);
+    double  eval(referee::Referee* ref);
     double  countScore(referee::Piece::identity playerTurn);
     int     countRow(referee::Piece::identity playerTurn, int n);
     virtual bool is_human() override {return false;}
