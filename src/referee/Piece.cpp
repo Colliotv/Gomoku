@@ -211,7 +211,6 @@ namespace referee {
   {
 
     if (oth.m_identity != identity::none && (distance == 1 || distance == -1)) {
-      std::cout << "near placed" << std::endl;
       m_near += 1;
     } else if (distance == 1 || distance == -1) {
       m_near -= 1;

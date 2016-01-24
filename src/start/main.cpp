@@ -39,8 +39,13 @@ int	main()
   while (lib->window().isOpen()) {
     sf::Event e;
     while (!_referee->human_turn() || lib->window().pollEvent(e)) {
-      if (!_referee->human_turn())
+      if (!_referee->human_turn()) {
         _referee->ia_place();
+        lib->refreshImg(_referee->board(),
+                        _referee->getMTurn(),
+                        _referee->white_player().taken(), _referee->black_player().taken(),
+                        _referee->win());
+      }
       else if (e.type == sf::Event::MouseButtonPressed) {
         position = lib->getPosition();
         gridPos = lib->pixelToBoardPos(position);

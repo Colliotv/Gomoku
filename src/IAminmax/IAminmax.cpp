@@ -140,7 +140,7 @@ double IAminmax::min(referee::Referee& ref, int depth) {
 
 void IAminmax::IaTurn() {
     double maxScore = -100000;
-    double tmpScore = 0;
+    double tmpScore = -100000;
     referee::Piece::Position bestMove(0,0);
     referee::Piece::Position pos(0,0);
 
@@ -164,7 +164,8 @@ void IAminmax::IaTurn() {
                     return;
                 }
                 tmpScore = min(tmpRef, this->_depth - 1);
-            }
+            } else
+                tmpScore = -100000;
             if (tmpScore > maxScore)
             {
                 maxScore = tmpScore;
