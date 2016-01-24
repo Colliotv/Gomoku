@@ -97,8 +97,8 @@ double IAminmax::max(referee::Referee* ref, int depth)
         pos.x = 0;
         for (; pos.x < 19; pos.x++)
         {
-            referee::Referee tmpRef(ref->copy());
-            if (tmpRef.board()[pos].can_pose(tmpRef.getMTurn())) {
+            if (ref->board()[pos].can_pose(ref->getMTurn())) {
+                referee::Referee tmpRef(ref->copy());
                 tmpRef.place_at(pos);
                 tmpScore = min(&tmpRef, depth - 1);
                 if (tmpScore > maxScore)
@@ -121,8 +121,8 @@ double IAminmax::min(referee::Referee* ref, int depth) {
         pos.x = 0;
         for (; pos.x < 19; pos.x++)
         {
-            referee::Referee tmpRef(ref->copy());
-            if (tmpRef.board()[pos].can_pose(tmpRef.getMTurn())) {
+            if (ref->board()[pos].can_pose(ref->getMTurn())) {
+                referee::Referee tmpRef(ref->copy());
                 tmpRef.place_at(pos);
                 tmpScore = max(&tmpRef, depth - 1);
                 if (tmpScore < minScore)
@@ -149,10 +149,10 @@ void IAminmax::IaTurn() {
     {
         pos.x = 0;
         for (; pos.x < 19; pos.x++) {
-            referee::Referee tmpRef(this->_referee->copy());
             this->_precTakenWhite = this->taken();
             this->_precTakenBlack = this->_referee->black_player().taken();
-            if (tmpRef.board()[pos].can_pose(tmpRef.getMTurn())) {
+            if (this->_referee->board()[pos].can_pose(this->_referee->getMTurn())) {
+                referee::Referee tmpRef(this->_referee->copy());
                 if (tmpRef.place_at(pos)) {
                     this->_referee->place_at(pos);
                     return;
