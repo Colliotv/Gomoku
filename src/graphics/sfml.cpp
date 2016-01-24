@@ -5,7 +5,7 @@
 // Login   <terran_j@epitech.net>
 //
 // Started on  Tue Oct 27 11:24:47 2015 terran_j
-// Last update Thu Nov 26 22:06:45 2015 terran_j
+// Last update Sun Jan 24 19:05:55 2016 terran_j
 //
 
 #include "graphics/sfml.hh"
@@ -372,9 +372,6 @@ sf::Vector2i	SFML::pixelToBoardPos(sf::Vector2i position)
     gridPos.x = -1; // hors de la map
     gridPos.y = -1; // hors de la map
   }
-
-  std::cout << "coord reelles: x: " << gridPos.x << " et y: " << gridPos.y << std::endl; // atej
-
   return (gridPos);
 }
 

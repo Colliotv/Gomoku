@@ -158,7 +158,6 @@ void IAminmax::IaTurn() {
                     return;
                 }
                 tmpScore = min(&tmpRef, this->_depth - 1);
-                std::cout << tmpScore << " posx : " << pos.x << " posy " << pos.y << std::endl;
                 if (tmpScore > maxScore) {
                     maxScore = tmpScore;
                     bestMove.x = pos.x;
