@@ -22,7 +22,7 @@ OBJ	=       $(SRC:.cpp=.o)
 
 CXX  =          g++
 
-CXXFLAGS +=	-Wall -Wextra -Werror -I ./includes/ -std=gnu++11
+CXXFLAGS +=	-Wall -Wextra -Werror -I ./includes/ -std=gnu++14
 
 LDFLAGS =       -lpthread -lX11 -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 

@@ -71,23 +71,16 @@ int IAminmax::countRow(referee::Referee* ref, referee::Piece::identity playerTur
 double IAminmax::eval(referee::Referee* ref)
 {
     double score = 0;
-    if (ref->win() == this->m_identity)
-        score = 10000;
-    else if (ref->win() != this->m_identity && ref->win() != referee::Piece::identity::none)
-        score = -10000;
-    else
-    {
+    int fourRow = countRow(ref, referee::Piece::identity::white , 4);
+    int threeRow = countRow(ref,referee::Piece::identity::white, 3);
+    int twoRow = countRow(ref,referee::Piece::identity::white, 2);
+    int fourRowadv = countRow(ref, referee::Piece::identity::black, 4);
+    int threeRowadv = countRow(ref,referee::Piece::identity::black, 3);
+    int twoRowadv = countRow(ref,referee::Piece::identity::black, 2);
+    score = ((referee::Piece::identity::white == ref->win() ? 10000 : 0) + fourRow * 100.0 + (ref->white_player().taken() - this->_precTakenWhite) * 75.0 + threeRow * 5.0 + twoRow * 1.0)
+            - ((referee::Piece::identity::black == ref->win() ? 10000 : 0) + fourRowadv * 100.0 + (ref->black_player().taken() - this->_precTakenBlack) * 75.0 + threeRowadv * 5.0 + twoRowadv * 1.0);
 
-        int fourRow = countRow(ref, referee::Piece::identity::white , 4);
-        int threeRow = countRow(ref,referee::Piece::identity::white, 3);
-        int twoRow = countRow(ref,referee::Piece::identity::white, 2);
-        int fourRowadv = countRow(ref, referee::Piece::identity::black, 4);
-        int threeRowadv = countRow(ref,referee::Piece::identity::black, 3);
-        int twoRowadv = countRow(ref,referee::Piece::identity::black, 2);
-        score = (fourRow * 100.0 + threeRow * 5.0 + twoRow * 1.0) - (fourRowadv * 100.0 + threeRowadv * 5.0 + twoRowadv * 1.0);
-
-        //TODO eatthemall
-    }
+    //TODO eatthemall
     return score;
 }
 
@@ -157,7 +150,8 @@ void IAminmax::IaTurn() {
         pos.x = 0;
         for (; pos.x < 19; pos.x++) {
             referee::Referee tmpRef(this->_referee->copy());
-            this->_precTaken = this->taken();
+            this->_precTakenWhite = this->taken();
+            this->_precTakenBlack = this->_referee->black_player().taken();
             if (tmpRef.board()[pos].can_pose(tmpRef.getMTurn())) {
                 if (tmpRef.place_at(pos)) {
                     this->_referee->place_at(pos);
