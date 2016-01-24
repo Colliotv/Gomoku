@@ -108,7 +108,7 @@ double IAminmax::max(referee::Referee* ref, int depth)
             referee::Referee tmpRef(ref->copy());
             if (tmpRef.board()[pos].can_pose(tmpRef.getMTurn())) {
                 tmpRef.place_at(pos);
-                tmpScore = max(tmpRef, depth - 1);
+                tmpScore = max(&tmpRef, depth - 1);
                 if (tmpScore > maxScore)
                     maxScore = tmpScore;
             }
@@ -132,7 +132,7 @@ double IAminmax::min(referee::Referee* ref, int depth) {
             referee::Referee tmpRef(ref->copy());
             if (tmpRef.board()[pos].can_pose(tmpRef.getMTurn())) {
                 tmpRef.place_at(pos);
-                tmpScore = max(tmpRef, depth - 1);
+                tmpScore = max(&tmpRef, depth - 1);
                 if (tmpScore < minScore)
                     minScore = tmpScore;
             }
@@ -164,7 +164,7 @@ void IAminmax::IaTurn() {
                     this->_referee->place_at(pos);
                     return;
                 }
-                tmpScore = min(tmpRef, this->_depth - 1);
+                tmpScore = min(&tmpRef, this->_depth - 1);
                 std::cout << tmpScore << std::endl;
                 if (tmpScore > maxScore) {
                     maxScore = tmpScore;
