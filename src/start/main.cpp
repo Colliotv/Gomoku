@@ -38,8 +38,8 @@ int	main()
   // boucle de jeu:
   while (lib->window().isOpen()) {
     sf::Event e;
-    while (!_referee->human_turn() || lib->window().pollEvent(e)) {
-      if (!_referee->human_turn()) {
+    while ( (_referee->win() == referee::Piece::identity::none && !_referee->human_turn()) || lib->window().pollEvent(e)) {
+      if (_referee->win() == referee::Piece::identity::none && !_referee->human_turn()) {
         _referee->ia_place();
         lib->refreshImg(_referee->board(),
                         _referee->getMTurn(),
